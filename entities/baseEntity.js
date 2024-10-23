@@ -1,6 +1,6 @@
 
 
-export default class BaseModel {
+export default class BaseEntity {
 
     constructor(){
 
@@ -12,7 +12,7 @@ export default class BaseModel {
         for(let prop of props){
             if((typeof this[prop] === 'string' || 
                 typeof this[prop] === 'number' || 
-                this[prop] instanceof BaseModel) && 
+                this[prop] instanceof BaseEntity) && 
                 this[prop]){
                 json[prop] = this[prop];
             }
