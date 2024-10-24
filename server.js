@@ -1,6 +1,8 @@
 import express from 'express'
+import path from 'path'
+import { fileURLToPath } from 'url'
 import swaggerUi from 'swagger-ui-express';
-import counteudoRoute from './routes/conteudoRoute.js'
+import cartaRoute from './routes/cartaRoute.js'
 import authRoute from './routes/authRoute.js'
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
@@ -12,7 +14,7 @@ app.use(express.json());
 
 //página de documentação
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(outputJson));
-app.use('/conteudos', counteudoRoute);
+app.use('/carta', cartaRoute);
 app.use('/auth', authRoute);
 
 

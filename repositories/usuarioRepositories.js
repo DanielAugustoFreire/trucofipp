@@ -1,5 +1,5 @@
 import BaseRepositories from './baseRepositories.js';
-import UsuarioEntitie from '../entities/usuarioEntitie.js';
+import UsuarioEntity from '../entities/usuarioEntity.js'
 
 export default class UsuarioRepositorie extends BaseRepositories{
     
@@ -60,7 +60,7 @@ export default class UsuarioRepositorie extends BaseRepositories{
             let lista = [];
             for(let i = 0; i < rows.length; i++) {
                 let row = rows[i];
-                let usuario = new UsuarioEntitie();
+                let usuario = new UsuarioEntity();
                 usuario.id = row["usu_id"];
                 usuario.nome = row["usu_nome"];
                 usuario.email = row["usu_email"];
@@ -72,7 +72,7 @@ export default class UsuarioRepositorie extends BaseRepositories{
             return lista;
         }
         else{
-            let usuario = new UsuarioEntitie();
+            let usuario = new UsuarioEntity();
             usuario.id = rows["usu_id"];
             usuario.nome = rows["usu_nome"];
             usuario.email = rows["usu_email"];

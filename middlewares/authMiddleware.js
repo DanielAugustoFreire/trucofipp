@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import UsuarioEntitie from '../entities/usuarioEntitie.js';
 import UsuarioRepositorie from '../repositories/usuarioRepositories.js';
 
 const SEGREDO = "A_ARTE_DA_GUERRA_SUN_TZU"
