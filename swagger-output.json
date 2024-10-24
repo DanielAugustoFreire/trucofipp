@@ -11,32 +11,14 @@
     }
   ],
   "paths": {
-    "/conteudos/": {
+    "/carta/": {
       "get": {
-        "tags": [
-          "Conteudo"
-        ],
-        "summary": "Endpoint para listar os conteudos disponiveis",
         "description": "",
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
+        }
       }
     },
     "/auth/token": {

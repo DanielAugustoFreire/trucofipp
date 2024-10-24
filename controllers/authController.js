@@ -1,6 +1,6 @@
 import AuthMiddleware from "../middlewares/authMiddleware.js";
 import UsuarioRepositorie from "../repositories/usuarioRepositories.js";
-import UsuarioEntitie from "../entities/usuarioEntitie.js";
+import UsuarioEntitie from "../entities/usuarioEntity.js";
 import Database from "../db/database.js";
 
 
