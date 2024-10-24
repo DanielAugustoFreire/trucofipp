@@ -5,7 +5,7 @@ const banco = new Database()
 
 export default class CartaEntity extends BaseEntity{
 
-    #id_carta;
+    #id;
     #cod_carta;
     #imagem_carta;
     #carta_valor;
@@ -14,7 +14,7 @@ export default class CartaEntity extends BaseEntity{
     #par_id;
 
 
-    get id_carta() { return this.#id_carta; }                           set id_carta(value) { this.#id_carta = value; }
+    get id() { return this.#id; }                           set id(value) { this.#id = value; }
     get cod_carta() { return this.#cod_carta; }                     set cod_carta(value) { this.#cod_carta = value; }
     get imagem_carta() { return this.#imagem_carta; }                       set imagem_carta(value) { this.#imagem_carta = value; }
     get carta_valor() { return this.#carta_valor; }                       set carta_valor(value) { this.#carta_valor = value; }
@@ -25,9 +25,9 @@ export default class CartaEntity extends BaseEntity{
 
 
 
-    constructor(id_carta, cod_carta, imagem_carta, carta_valor, carta_naipe, manilha, par_id){
+    constructor(id, cod_carta, imagem_carta, carta_valor, carta_naipe, manilha, par_id){
         super();
-        this.#id_carta = id_carta
+        this.#id = id
         this.#cod_carta = cod_carta
         this.#imagem_carta = imagem_carta
         this.#carta_valor = carta_valor
