@@ -2,15 +2,15 @@ import CartaRepositories from '../repositories/cartaRepositories.js';
 
 export default class CartaController {
 
-    async pegarCartas(req, res) {
+    async iniciarPartidaCartas(req, res) {
         try {
             let repo = new CartaRepositories();
-            let deck = await repo.obterDeck();
-            let carta = await repo.obterDeck();
-            res.status(200).json(result);
+            let deck = await repo.obter13Cartas();
+            deck = await repo.rearanjarCartas(deck);
+            res.status(200).json(deck);
         }
         catch(ex) {
-            console.log(ex)
+            console.log(ex) 
             res.status(500).json({msg: ex.message});
         }
     }
