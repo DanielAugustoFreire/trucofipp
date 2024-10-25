@@ -17,10 +17,10 @@ export default class CartaRepositories {
     }
 
     async rearanjarCartas(deck) {
-        let valueManilha = this.toMap(deck[0]);
+        let valueVira = this.toMap(deck[0]);
 
         let obj_retorno = {
-            manilha: valueManilha,
+            vira: valueVira,
             deck_jogador1: [],
             deck_jogador2: [],
             deck_jogador3: [],
@@ -54,6 +54,7 @@ export default class CartaRepositories {
                 carta.imagem_carta = row.image;
                 carta.carta_valor = row.value;
                 carta.carta_naipe = row.suit;
+                carta.vira = rows[0].code;
 
                 lista.push(carta);
             }
@@ -67,6 +68,7 @@ export default class CartaRepositories {
             carta.imagem_carta = rows.image;
             carta.carta_valor = rows.value;
             carta.carta_naipe = rows.suit;
+            carta.vira = rows.code
 
             return carta;
         }

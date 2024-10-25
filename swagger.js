@@ -3,8 +3,8 @@ import swaggerAutogen from "swagger-autogen";
 
 const doc = {
     info: {
-        title: "API RESTful - Plataforma de Streaming",
-        description: "API criada utilizando o padrão REST na disciplina de Programação Fullstack 2"
+        title: "API REST - TRUCOFIPP",
+        description: "API PARA O JOGO DE TRUCO",
     },
     host: 'localhost:5000',
     components: {
