@@ -17,6 +17,9 @@ export default class AutenticacaoController {
                 if(usuario) {
                     let auth = new AuthMiddleware();
                     let chave = auth.gerarToken(usuario[0].id, usuario[0].nome, usuario[0].email);
+                    res.cookie("chave", chave, {
+                        httpOnly: true
+                    });
                     res.status(200).json({chave: chave});
                 }
                 else {
@@ -64,4 +67,20 @@ export default class AutenticacaoController {
             res.status(500).json({msg: ex.message});
         }
     }
+
+    async valiarFrontEnd(req,res){
+        try{
+            let chave = req.cookies.chave
+            let auth = new AuthMiddleware();
+            let usuario = await auth.validarParaFrontEnd(chave);
+            if(usuario){
+                res.status(200).json(usuario);
+            }else{
+                res.status(401).json({msg: "Nao Autorizado"});
+            }
+        }catch(ex){
+            res.status(401).json({msg: "Nao Autorizado"});
+        }
+    }
+    
 }

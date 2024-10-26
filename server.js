@@ -1,5 +1,6 @@
 import express from 'express'
 import swaggerUi from 'swagger-ui-express';
+import cookieParser from 'cookie-parser';
 import cartaRoute from './routes/cartaRoute.js'
 import authRoute from './routes/authRoute.js'
 import { createRequire } from "module";
@@ -27,6 +28,7 @@ socketInit(io);
 
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(cors({origin: "http://localhost:3000", credentials: true}));
 
