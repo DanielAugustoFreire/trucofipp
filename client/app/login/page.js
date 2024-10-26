@@ -102,8 +102,8 @@ export default function Login() {
                       />
                       <label class="form-check-label" for="form2Example3"></label>
                     </div>
-                    <a href="#!" class="text-body">
-                      Forgot password?
+                    <a href="/cadastrar" class="text-body">
+                      Nao tem uma conta? Registre-se
                     </a>
                   </div>
   
