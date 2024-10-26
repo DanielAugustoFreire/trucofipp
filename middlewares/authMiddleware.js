@@ -10,7 +10,7 @@ export default class AuthMiddleware {
             id: id,
             nome: nome,
             email: email
-        }, SEGREDO)
+        }, SEGREDO, {expiresIn: "1h"});
     }
 
     async validar(req,res,next){
@@ -25,7 +25,9 @@ export default class AuthMiddleware {
                     let auth = new AuthMiddleware();
                     let newToken = auth.gerarToken(objUsuario.id, objUsuario.nome, objUsuario.email);
                     res.cookie("chave", newToken, {
-                        httpOnly: true
+                        httpOnly: true,
+                        sameSite: "none",
+                        path: "/",
                     });
                     req.usuarioLogado = usuario
                     next();
@@ -40,4 +42,22 @@ export default class AuthMiddleware {
         }
     }
 
+    async validarParaFrontEnd(cookie) {
+        if (cookie) {
+            try {
+                let objUsuario = jwt.verify(cookie, SEGREDO);
+                let repo = new UsuarioRepositorie();
+                let usuario = await repo.obter(objUsuario.id);
+                if (usuario) {
+                    return { usuario: usuario };
+                } else {
+                    return { msg: "Nao Autorizado" };
+                }
+            } catch (ex) {
+                return res.status(401).json({ msg: "Nao Autorizado" });
+            }
+        } else {
+            return res.status(401).json({ msg: "Nao Autorizado" });
+        }
+    }
 }

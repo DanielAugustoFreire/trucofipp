@@ -1,7 +1,8 @@
 import express from "express";
 import cartaController from "../controllers/cartaController.js";
+import AuthMiddleware from "../middlewares/authMiddleware.js";
 
-
+const auth = new AuthMiddleware();
 const ctrl = new cartaController();
 const router = express.Router();
 
