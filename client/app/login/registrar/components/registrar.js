@@ -1,9 +1,13 @@
-export default function FormLogin(){
-  
+
+
+export default function Registar(){
+
+
+
     return (
         <form>
         <div class="divider d-flex align-items-center my-4">
-          <h2>TRUCOFIPP ONLINE</h2>
+          <h2>REGISTRAR TRUCOFIPP ONLINE</h2>
         </div>
 
         <div data-mdb-input-init class="form-outline mb-4">
@@ -32,7 +36,7 @@ export default function FormLogin(){
 
         <div class="d-flex justify-content-between align-items-center">
 
-          <a href="/login/registrar" class="text-body">
+          <a href="/cadastrar" class="text-body">
             Nao tem uma conta? Registre-se
           </a>
         </div>
