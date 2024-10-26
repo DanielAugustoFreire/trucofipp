@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API RESTful - Plataforma de Streaming",
-    "description": "API criada utilizando o padrão REST na disciplina de Programação Fullstack 2",
+    "title": "API REST - TRUCOFIPP",
+    "description": "API PARA O JOGO DE TRUCO",
     "version": "1.0.0"
   },
   "servers": [
