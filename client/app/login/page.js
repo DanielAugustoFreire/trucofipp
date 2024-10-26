@@ -36,7 +36,6 @@ export default function Login() {
               <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                 <form>
                   <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-                    <p class="lead fw-normal mb-0 me-3">Sign in with</p>
                     <button
                       type="button"
                       data-mdb-button-init
