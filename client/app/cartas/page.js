@@ -1,6 +1,7 @@
 "use client";
 
-import ItemCarta from "./components/itemCarta.js";
+import DeckCarta from "./components/deckCarta.js";
+import TomboCarta from "./components/tomboCarta.js";
 import React, { useEffect, useState, useRef } from "react";
 import { io } from "socket.io-client";
 
@@ -62,68 +63,25 @@ function MeuComponente() {
   }
 
 return (
-    <div className="container h-100 p-5 my-5 border border-dark rounded">
-        <div className="d-flex flex-column h-100">
-            <div className="bg-primary text-white p-2 flex-shrink-0">
-                <div className="row justify-content-center">
-                    <div className="col-12 d-flex flex-wrap justify-content-center">
-                        CIMA
-                        {cartas.deck_jogador1.map((carta, index) => (
-                            <div key={index}>
-                                <ItemCarta obj_carta={carta} />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-            <div className="d-flex flex-grow-1">
-                <div className="bg-success text-white p-2 flex-fill">
-                    <div className="col-12 d-flex flex-column align-items-center">
-                        ESQUERDA
-                        {cartas.deck_jogador2.map((carta, index) => (
-                            <div key={index} style={{ transform: "rotate(90deg)", margin: -10 }}>
-                                <ItemCarta obj_carta={carta} />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-                <div className="bg-success text-white p-2 flex-fill">
-                    MEIO
-                    <div className="col-12 d-flex flex-wrap justify-content-center">
-                        <img
-                            src={cartas.vira.imagem_carta}
-                            alt="vira"
-                            style={{
-                                width: "50px",
-                                position: "absolute",
-                                top: "20%",
-                                left: "50%",
-                                transform: "translateX(-50%)",
-                            }}
-                        />
-                    </div>
-                </div>
-                <div className="bg-success text-white p-2 flex-fill">
-                    <div className="col-12 d-flex flex-column align-items-center">
-                        DIREITA
-                        {cartas.deck_jogador3.map((carta, index) => (
-                            <div key={index} style={{ transform: "rotate(90deg)", margin: -10 }}>
-                                <ItemCarta obj_carta={carta} />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-            <div className="bg-danger text-white p-2 flex-shrink-0">
-                <div className="col-12 d-flex flex-wrap justify-content-center">
-                    BAIXO
-                    {cartas.deck_jogador4.map((carta, index) => (
-                        <ItemCarta key={index} obj_carta={carta} />
-                    ))}
-                </div>
-            </div>
+  <div className="container p-5 my-5 border border-dark rounded" style={{ width: "80%", height: "80%" }}>
+    <div className="d-flex flex-column h-100">
+      <DeckCarta deck_jogador={cartas.deck_jogador1} rotate={0} cor={"primary"} is_row={true}></DeckCarta>
+      <div className="d-flex flex-grow-1">
+        <DeckCarta deck_jogador={cartas.deck_jogador2} rotate={[85, 90, 95]} cor={"warning"}></DeckCarta>
+        <div className="d-flex flex-column bg-secondary" style={{ width: "10%" }}>
+          <div className="bg-dark" style={{ flex: 1 }}></div>
+          <div className="bg-secondary" style={{ flex: 1 }}></div>
         </div>
+        <TomboCarta vira={cartas.vira}></TomboCarta>
+        <div className="d-flex flex-column bg-secondary" style={{ width: "10%" }}>
+          <div className="bg-secondary" style={{ flex: 1 }}></div>
+          <div className="bg-dark" style={{ flex: 1 }}></div>
+        </div>
+        <DeckCarta deck_jogador={cartas.deck_jogador3} rotate={[95, 90, 85]} cor={"danger"} is_right={true}></DeckCarta>
+      </div>
+      <DeckCarta deck_jogador={cartas.deck_jogador4} rotate={0} cor={"info"} is_row={true}></DeckCarta>
     </div>
+  </div>
 );
 }
 

@@ -21,7 +21,7 @@ export default function Home() {
 
       <section id="jogar" className="text-center">
         <h2>Pronto para Jogar?</h2>
-        <button type="button" className="btn btn-success btn-lg">Iniciar Jogo</button>
+        <Link href="/cartas" className="btn btn-success btn-lg">Iniciar Jogo</Link>
       </section>
       </div>
 
