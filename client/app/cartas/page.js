@@ -37,22 +37,21 @@ function MeuComponente() {
   }
 
   useEffect(() => {
-    socket.current = io(URL, {
-      query: {
-        codSala: "1",
-        nome: "Daniel",
-      },
-    });
+    socket.current = io(URL);
 
-    socket.current.on("teste", carregarCartas);
+    socket.current.emit("HandShake", {  // ENVIA MENSAGEM PARA O BACKEND
+      mensagem: "Front -> Back"
+    })
 
-    socket.current.on("entrou", entrou);
+    socket.current.on("CarregarCartas", carregarCartas);
 
     return () => {
-      socket.current.off("teste", carregarCartas);
-      socket.current.off("entrou", entrou);
-    };
-  }, []);
+      socket.current.off("CarregarCartas", carregarCartas);
+    }
+
+  }, [])
+
+
 
   if (loading) {
     return <div>Carregando...</div>;
