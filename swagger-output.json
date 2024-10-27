@@ -22,9 +22,6 @@
           "200": {
             "description": "OK"
           },
-          "401": {
-            "description": "Unauthorized"
-          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -132,7 +129,7 @@
       }
     },
     "/auth/api/validarFront": {
-      "post": {
+      "get": {
         "description": "",
         "responses": {
           "200": {
@@ -140,6 +137,43 @@
           },
           "401": {
             "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/sala/": {
+      "post": {
+        "tags": [
+          "Sala"
+        ],
+        "summary": "Criar sala",
+        "description": "Essa rota cria uma sala",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "example": "any"
+                  },
+                  "usuario_id": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }

@@ -68,13 +68,18 @@ export default class AutenticacaoController {
         }
     }
 
-    async valiarFrontEnd(req,res){
+    async validarFrontEnd(req,res){
         try{
             let chave = req.cookies.chave
             let auth = new AuthMiddleware();
             let usuario = await auth.validarParaFrontEnd(chave);
+            let retorno = {
+                id : usuario.usuario[0].id,
+                nome : usuario.usuario[0].nome,
+                email : usuario.usuario[0].email
+            }
             if(usuario){
-                res.status(200).json(usuario);
+                res.status(200).json(retorno);
             }else{
                 res.status(401).json({msg: "Nao Autorizado"});
             }

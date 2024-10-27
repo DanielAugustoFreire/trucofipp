@@ -1,7 +1,4 @@
-import Database from "../db/database.js"
 import BaseEntity from "./baseEntity.js";
-
-const banco = new Database()
 
 export default class UsuarioEntitie extends BaseEntity{
 

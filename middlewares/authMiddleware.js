@@ -54,10 +54,10 @@ export default class AuthMiddleware {
                     return { msg: "Nao Autorizado" };
                 }
             } catch (ex) {
-                return res.status(401).json({ msg: "Nao Autorizado" });
+                return { msg: "Nao Autorizado" };
             }
         } else {
-            return res.status(401).json({ msg: "Nao Autorizado" });
+            return { msg: "Nao Autorizado" };
         }
     }
 }
