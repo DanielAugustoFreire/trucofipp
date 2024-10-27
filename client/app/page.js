@@ -9,20 +9,6 @@ export default function Home() {
     id: "",
     nome: ""
   }
-  
-  function ValidarFront() {
-    fetch("http://localhost:5000/auth/api/validarFront", {
-      credentials: "include",
-    })
-    .then((r) => r.json())
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((ex) => {
-      console.log(ex);
-    });
-
-  };
 
   return (
     <div>
