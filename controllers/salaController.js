@@ -3,6 +3,21 @@ import Database from '../db/database.js';
 
 export default class salaController{
 
+    async listarSalas(req,res){
+        try{
+            let repo = new salaRepositories();
+            let salas = await repo.listarSalas();
+            if(salas){
+                res.status(200).json(salas);
+            }
+            else{
+                throw new Error("Erro ao listar salas");
+            }
+        }catch(ex){
+            res.status(500).json({mensagem: "Erro ao listar salas", erro: ex});
+        }
+    }
+
     async criarSala(req,res){
         let banco = new Database();
         await banco.AbreTransacao();

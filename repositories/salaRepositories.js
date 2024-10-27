@@ -7,6 +7,13 @@ export default class salaRepositories extends BaseRepositories{
         super(db)
     }
 
+    async listarSalas(){
+        let sql = "select * from tb_sala";
+
+        let result = await this.db.ExecutaComando(sql);
+
+        return this.toMap(result);
+    }
 
     async criarSala(nome, usuario_id){
         let sql = "insert into tb_sala (sal_nome, usu_id) values (?,?)";
