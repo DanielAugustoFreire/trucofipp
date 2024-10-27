@@ -3,6 +3,12 @@
 import Link from 'next/link';
 
 export default function Home() {
+
+  let usuario = {
+    email: "",
+    id: "",
+    nome: ""
+  }
   
   function ValidarFront() {
     fetch("http://localhost:5000/auth/api/validarFront", {
@@ -10,14 +16,11 @@ export default function Home() {
     })
     .then((r) => r.json())
     .then((data) => {
-      console.log(data.usuario[0]);
+      console.log(data);
     })
     .catch((ex) => {
       console.log(ex);
     });
-
-    let usuario = data.usuario[0];
-
 
   };
 
@@ -29,7 +32,7 @@ export default function Home() {
           <h1>Bem-vindo ao FIPPTRUCO</h1>
         </div>
         <div>
-          <Link href="/login" type="button" className="btn btn-primary">Login</Link>
+          <Link href="/salas" type="button" className="btn btn-primary">Login</Link>
         </div>
       </header>
 

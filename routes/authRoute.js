@@ -59,7 +59,7 @@ router.post("/cadastrar", (req,res) => {
 })
 
 router.get("/api/validarFront", (req,res) => {
-    ctrl.valiarFrontEnd(req,res)
+    ctrl.validarFrontEnd(req,res)
 })
 
 export default router;
