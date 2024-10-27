@@ -6,6 +6,9 @@ const auth = new AuthMiddleware();
 const router = express.Router();
 const ctrl = new salaController()
 
+router.get("/", (req, res) => {
+    ctrl.listarSalas(req,res);
+})
 router.post(`/`, (req, res) => {
     // #swagger.tags = ['Sala']
     // #swagger.summary = 'Criar sala

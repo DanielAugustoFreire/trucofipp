@@ -1,6 +1,7 @@
+import BaseEntity from "./baseEntity.js"
 
 
-export default class SalaEntity{
+export default class SalaEntity extends BaseEntity{
     #id
     #nome
     #usuario_id
@@ -15,6 +16,7 @@ export default class SalaEntity{
     set usuario_id(usuario_id){ this.#usuario_id = usuario_id }
 
     constructor(id, nome, usuario_id){
+        super();
         this.#id = id;
         this.#nome = nome;
         this.#usuario_id = usuario_id;
