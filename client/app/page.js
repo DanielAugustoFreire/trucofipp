@@ -18,7 +18,7 @@ export default function Home() {
           <h1>Bem-vindo ao FIPPTRUCO</h1>
         </div>
         <div>
-          <Link href="/salas" type="button" className="btn btn-primary">Login</Link>
+          <Link href="/login" type="button" className="btn btn-primary">Login</Link>
         </div>
       </header>
 
@@ -30,7 +30,8 @@ export default function Home() {
 
         <section id="jogar" className="text-center">
           <h2>Pronto para Jogar?</h2>
-          <button onClick={ValidarFront} className="btn btn-success btn-lg">Iniciar Jogo</button>
+
+          <a href="/salas"className="btn btn-success btn-lg">Iniciar Jogo</a>
         </section>
       </div>
 

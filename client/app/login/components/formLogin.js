@@ -1,7 +1,28 @@
-export default function FormLogin(){
+import { useRef } from "react"
+
+export default function FormLogin( ){
   
+  let objUsuario = {
+    email: "",
+    senha: ""
+  }
+
+  function Login(){
+    if(!(emailRef.current.value === "" || senhaRef.current.value === ""))
+    {
+
+    }else{
+      alert("Preencha todos os campos");
+    }
+  }
+
+  let emailRef = useRef();
+  let senhaRef = useRef();
+
+
+
     return (
-        <form>
+        <div>
         <div class="divider d-flex align-items-center my-4">
           <h2>TRUCOFIPP ONLINE</h2>
         </div>
@@ -48,7 +69,7 @@ export default function FormLogin(){
             Login
           </button>
         </div>
-      </form>
+      </div>
     )
 
 }

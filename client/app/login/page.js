@@ -1,3 +1,5 @@
+"use client"
+
 import FormLogin from "./components/formLogin.js";
 import ImgTrucoFipp from "./components/imgTrucoFipp.js"
 import Footerlogin from "./components/footerLogin.js"
@@ -5,10 +7,6 @@ import Footerlogin from "./components/footerLogin.js"
 
 export default function Login() {
 
-    function Login(){
-      
-        
-    }
     return (
       <div className="mt-5">
         <section class="vh-100">
