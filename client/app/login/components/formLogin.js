@@ -1,69 +1,96 @@
 import { useRef } from "react"
+import { useRouter } from 'next/router';
+
 
 export default function FormLogin( ){
   
+
+
   let objUsuario = {
     email: "",
     senha: ""
-  }
-
-  function Login(){
-    if(!(emailRef.current.value === "" || senhaRef.current.value === ""))
-    {
-      
-    }else{
-      alert("Preencha todos os campos");
-    }
   }
 
   let emailRef = useRef();
   let senhaRef = useRef();
 
 
+  function Login(){
+    if(!(emailRef.current.value === "" || senhaRef.current.value === ""))
+    {
+      objUsuario.email = emailRef.current.value;
+      objUsuario.senha = senhaRef.current.value;
+      fetch("http://localhost:5000/auth/token",{
+        method: "POST", 
+        body: JSON.stringify(objUsuario),
+        headers: {
+          "Content-Type": "application/json"
+        },
+      })
+      .then(response => { // arrumar outra forma de mandar o usuario para a pagina de salas
+        if(response.status === 200){
+          alert("Login efetuado com sucesso");
+          window.location.href = '/salas';
+        }else{
+          window.location.href = '/login';
+        }
+      })
+
+    }else{
+      alert("Preencha todos os campos");
+    }
+  }
+
+
+
+
 
     return (
         <div>
-        <div class="divider d-flex align-items-center my-4">
+        <div className="divider d-flex align-items-center my-4">
           <h2>TRUCOFIPP ONLINE</h2>
         </div>
 
-        <div data-mdb-input-init class="form-outline mb-4">
+        <div data-mdb-input-init className="form-outline mb-4">
           <input
+            ref={emailRef}
             type="email"
             id="form3Example3"
-            class="form-control form-control-lg"
+            className="form-control form-control-lg"
             placeholder="Digitge um email Valido"
           />
-          <label class="form-label" for="form3Example3">
+          <label className="form-label">
             Email
           </label>
         </div>
 
-        <div data-mdb-input-init class="form-outline mb-3">
+        <div data-mdb-input-init className="form-outline mb-3">
           <input
+            ref={senhaRef}
             type="password"
             id="form3Example4"
-            class="form-control form-control-lg"
+            className="form-control form-control-lg"
             placeholder="Digite Sua senha"
           />
-          <label class="form-label" for="form3Example4">
+          <label className="form-label">
             Senha
           </label>
         </div>
 
-        <div class="d-flex justify-content-between align-items-center">
+        <div className="d-flex justify-content-between align-items-center">
 
-          <a href="/login/registrar" class="text-body">
+          <a href="/login/registrar" className="text-body">
             Nao tem uma conta? Registre-se
           </a>
         </div>
 
-        <div class="text-center text-lg-start mt-4 pt-2">
+        <div className="text-center text-lg-start mt-4 pt-2">
           <button
             type="button"
+            onClick={Login}
             data-mdb-button-init
             data-mdb-ripple-init
-            class="btn btn-primary btn-lg"
+            className="btn btn-primary btn-lg"
             style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem" }}
           >
             Login

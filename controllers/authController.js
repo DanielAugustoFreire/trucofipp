@@ -14,13 +14,13 @@ export default class AutenticacaoController {
                 //preciso instanciar a modelo e carregar um usuario baseado no email e senha
                 let repo = new UsuarioRepositorie();
                 let usuario = await repo.validarAcesso(email, senha);
-                if(usuario) {
+                if(usuario.length > 0) {
                     let auth = new AuthMiddleware();
                     let chave = auth.gerarToken(usuario[0].id, usuario[0].nome, usuario[0].email);
                     res.cookie("chave", chave, {
                         httpOnly: true
                     });
-                    res.status(200).json({chave: chave});
+                    res.status(200).json("Sucesso ao logar");
                 }
                 else {
                     res.status(404).json({msg: "Credenciais inválidas!"});
