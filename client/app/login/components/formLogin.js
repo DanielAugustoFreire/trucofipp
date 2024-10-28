@@ -10,7 +10,7 @@ export default function FormLogin( ){
   function Login(){
     if(!(emailRef.current.value === "" || senhaRef.current.value === ""))
     {
-
+      
     }else{
       alert("Preencha todos os campos");
     }
