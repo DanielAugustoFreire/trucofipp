@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
 
 async function isAuthenticated(request) {
-    let cookie = req.Cookie
+
+    /*Criar uma forma de mandar o cookie para o back ao entrar no middleware, para validar la
+    com a palavra segredo                                                                  */
 
     const response = await fetch("http://localhost:5000/auth/api/validarFront", {
         method: 'GET',
