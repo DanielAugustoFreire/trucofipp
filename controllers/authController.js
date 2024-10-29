@@ -70,19 +70,8 @@ export default class AutenticacaoController {
 
     async validarFrontEnd(req,res){
         try{
-            let chave = req.cookies.chave
-            let auth = new AuthMiddleware();
-            let usuario = await auth.validarParaFrontEnd(chave);
-            let retorno = {
-                id : usuario.usuario[0].id,
-                nome : usuario.usuario[0].nome,
-                email : usuario.usuario[0].email
-            }
-            if(usuario){
-                res.status(200).json(retorno);
-            }else{
-                res.status(401).json({msg: "Nao Autorizado"});
-            }
+            /*Mudar a logica para receber o token no req.body
+            vindo de um fetch feito no Front*/
         }catch(ex){
             res.status(401).json({msg: "Nao Autorizado"});
         }
