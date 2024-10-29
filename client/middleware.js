@@ -1,16 +1,15 @@
 import { NextResponse } from 'next/server';
 
+
 async function isAuthenticated(request) {
-
-    /*Criar uma forma de mandar o cookie para o back ao entrar no middleware, para validar la
-    com a palavra segredo                                                                  */
-
+    let chave = request.cookies.get("chave")
+    console.log(chave)
     const response = await fetch("http://localhost:5000/auth/api/validarFront", {
-        method: 'GET',
+        method: 'POST',
         credentials: 'include',
+        body: JSON.stringify({ chave }),
         headers: {
             'Content-Type': 'application/json',
-            'Cookie': request.headers.get('cookie') || '',
         },
     });
 
@@ -27,7 +26,7 @@ export async function middleware(request) {
     
     const autenticado = await isAuthenticated(request);
     
-    console.log(`Requisição para: ${pathname}, autenticado:`, autenticado);
+    console.log(`Requisição para: ${pathname}, autenticado:`, autenticado.id);
 
     if (!autenticado) {
         return NextResponse.redirect(new URL('/login', request.url));

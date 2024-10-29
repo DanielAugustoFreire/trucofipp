@@ -58,7 +58,7 @@ router.post("/cadastrar", (req,res) => {
     ctrl.cadastrar(req,res);
 })
 
-router.get("/api/validarFront", (req,res) => {
+router.post("/api/validarFront", (req,res) => {
     ctrl.validarFrontEnd(req,res)
 })
 

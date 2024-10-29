@@ -45,19 +45,27 @@ export default class AuthMiddleware {
     async validarParaFrontEnd(cookie) {
         if (cookie) {
             try {
-                let objUsuario = jwt.verify(cookie, SEGREDO);
-                let repo = new UsuarioRepositorie();
-                let usuario = await repo.obter(objUsuario.id);
-                if (usuario) {
-                    return { usuario: usuario };
-                } else {
-                    return { msg: "Nao Autorizado" };
-                }
+            let objUsuario = jwt.verify(cookie.value, SEGREDO);
+            let repo = new UsuarioRepositorie();
+            let usuario = await repo.obter(objUsuario.id);
+            let auth = new AuthMiddleware();
+            let NovoCookie = auth.gerarToken(objUsuario.id, objUsuario.nome, objUsuario.email);
+            if (usuario) {
+                let retorno = {
+                    chave: NovoCookie,
+                    nome: usuario[0].nome,
+                    email: usuario[0].email,
+                    id: usuario[0].id
+                };
+                return retorno;
+            } else {
+                throw new Error("Nao Autorizado");
+            }
             } catch (ex) {
-                return { msg: "Nao Autorizado" };
+            throw new Error("Nao Autorizado");
             }
         } else {
-            return { msg: "Nao Autorizado" };
+            throw new Error("Nao Autorizado");
         }
     }
 }

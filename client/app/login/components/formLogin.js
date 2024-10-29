@@ -1,10 +1,8 @@
 import { useRef } from "react"
-
+import Cookies from 'js-cookie'
 
 export default function FormLogin( ){
   
-
-
   let objUsuario = {
     email: "",
     senha: ""
@@ -26,9 +24,21 @@ export default function FormLogin( ){
           "Content-Type": "application/json"
         },
       })
-      .then((res) => res.json())
-      .then((data) =>{
-        
+      .then(response => {
+        if(response.status === 200){
+          return response.json();
+        }else{
+          return false;
+        }
+      })
+      .then(data => {
+        if(data){
+            Cookies.set("chave", data, { expires: 2 / 24 });
+          window.location.href = "/";
+        }else{
+          alert("Email ou senha incorretos");
+          window.location.href = "/login";
+        }
       })
     }else{
       alert("Preencha todos os campos");

@@ -23,7 +23,7 @@ export default class AutenticacaoController {
                     res.status(200).json(chave);
                 }
                 else {
-                    res.status(404).json({msg: "Credenciais inválidas!"});
+                    res.status(401).json({msg: "Credenciais inválidas!"});
                 }
             }
             else{
@@ -70,10 +70,16 @@ export default class AutenticacaoController {
 
     async validarFrontEnd(req,res){
         try{
-            /*Mudar a logica para receber o token no req.body
-            vindo de um fetch feito no Front*/
+            let {  chave  } = req.body;
+            let auth = new AuthMiddleware()
+            let usuario = await auth.validarParaFrontEnd(chave);
+            if(usuario){
+                res.status(200).json(usuario)
+            }else{
+                res.status(401).json({msg: "Nao Autorizado"});
+            }
         }catch(ex){
-            res.status(401).json({msg: "Nao Autorizado"});
+            res.status(500).json({msg: "Ocorreu um problema"});
         }
     }
     
