@@ -1,18 +1,20 @@
 import { NextResponse } from 'next/server';
 
 async function isAuthenticated(request) {
+    let cookie = req.Cookie
+
     const response = await fetch("http://localhost:5000/auth/api/validarFront", {
         method: 'GET',
-        credentials: 'include', // Inclui cookies na requisição
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
-            'Cookie': request.headers.get('cookie') || '', // Passa os cookies da requisição
+            'Cookie': request.headers.get('cookie') || '',
         },
     });
 
     if (response.status === 200) {
         const data = await response.json();
-        return data; // Ajuste conforme a estrutura de resposta do seu backend
+        return data;
     }
 
     return false;

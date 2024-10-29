@@ -27,15 +27,10 @@ export default function FormLogin( ){
           "Content-Type": "application/json"
         },
       })
-      .then(response => { // arrumar outra forma de mandar o usuario para a pagina de salas
-        if(response.status === 200){
-          alert("Login efetuado com sucesso");
-          window.location.href = '/salas';
-        }else{
-          window.location.href = '/login';
-        }
+      .then((res) => res.json())
+      .then((data) =>{
+        
       })
-
     }else{
       alert("Preencha todos os campos");
     }

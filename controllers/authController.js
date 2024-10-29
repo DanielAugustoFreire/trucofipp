@@ -20,7 +20,7 @@ export default class AutenticacaoController {
                     res.cookie("chave", chave, {
                         httpOnly: true
                     });
-                    res.status(200).json("Sucesso ao logar");
+                    res.status(200).json(chave);
                 }
                 else {
                     res.status(404).json({msg: "Credenciais inválidas!"});
