@@ -28,7 +28,7 @@ export async function middleware(request) {
     
     console.log(`Requisição para: ${pathname}, autenticado:`, autenticado.id);
 
-    if (!autenticado) {
+    if (autenticado) {
         return NextResponse.redirect(new URL('/login', request.url));
     }
 

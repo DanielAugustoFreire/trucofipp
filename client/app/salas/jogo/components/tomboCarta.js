@@ -7,7 +7,7 @@ export default function TomboCarta({vira}) {
 
     useEffect(() =>{
 
-    })
+    }, [])
 
 return (
     <div className="bg-success text-white p-2 flex-fill d-flex justify-content-center align-items-center">

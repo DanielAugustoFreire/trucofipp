@@ -1,11 +1,13 @@
 "use client"
 
 import { useEffect, useState } from "react";
+import ItemSala from "./components/itemSala";
 
 
 export default function Salas(){
 
     let [salas, setSalas] = useState([])
+    let [players, setPlayers] = useState([])
 
     function carregarSalas(){
         fetch("http://localhost:5000/sala")
@@ -18,9 +20,36 @@ export default function Salas(){
         });
     }
 
+    function carregarSalasSemNet(){
+        let data = [{
+            id: 3,
+            nome: "Sala 3",
+            usuario_nome: "Daniel"
+        }]
+        let players = [{
+            id: 1,
+            nome: "Daniel",
+            time: 1
+        },{
+            id: 2,
+            nome: "João",
+            time: 2
+        },{
+            id: 3,
+            nome: "Maria",
+            time: 1
+        },{
+            id: 4,
+            nome: "José",
+            time: 2
+        }]
+        setPlayers(players)
+        setSalas(data)
+    }
+
 
     useEffect(() => {
-        carregarSalas();
+        carregarSalasSemNet();
     }, []);
 
     return (
@@ -29,19 +58,16 @@ export default function Salas(){
             <div className="row">
                 {
                     salas ? 
-                    salas.map((value, index) => {
+                    salas.map((sala, index) => {
                         return (
-                            <div key={index} className="col-4 d-flex justify-content-center align-items-center mb-4">
-                                <div className="card text-center bg-dark text-white" style={{ width: '18rem' }}>
-                                    <div className="card-body d-flex flex-column justify-content-center align-items-center" style={{ height: '200px' }}>
-                                        <h5 className="card-title">{value.nome}</h5>
-                                        <p className="card-text">{value.usuario_id}</p>
-                                    </div>
-                                </div>
-                            </div>
+                            <ItemSala sala={sala} players={players} key={index}></ItemSala>
                         );
                     }) :<></>
                 }
+
+
+
+
                 <div className="d-flex justify-content-center align-items-center mt-4">
                     <button className="btn btn-primary rounded-circle" style={{ width: '50px', height: '50px' }}>+</button>
                 </div>
