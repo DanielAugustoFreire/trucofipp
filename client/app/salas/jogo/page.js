@@ -35,7 +35,7 @@ function MeuComponente() {
 
     socket.current.emit("HandShake", {
       mensagem: "Front -> Back"
-    })
+    }, [])
 
     socket.current.on("CarregarCartas", (data) => {
       console.log("Mensagem recebida do backend:", data);

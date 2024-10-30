@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react";
+import ItemSala from "./components/itemSala";
 
 
 export default function Salas(){
@@ -18,9 +19,18 @@ export default function Salas(){
         });
     }
 
+    function carregarSalasSemNet(){
+        let data = [{
+            id: 3,
+            nome: "Sala 3",
+            usuario_nome: "Daniel"
+        }]
+        setSalas(data)
+    }
+
 
     useEffect(() => {
-        carregarSalas();
+        carregarSalasSemNet();
     }, []);
 
     return (
@@ -29,52 +39,9 @@ export default function Salas(){
             <div className="row">
                 {
                     salas ? 
-                    salas.map((value, index) => {
+                    salas.map((sala, index) => {
                         return (
-                            <div>
-                                <div data-toggle="modal" data-target=".bd-example-modal-lg">
-                                    <div key={index} className="card mb-3 shadow-sm">
-                                        <div className="card-body">
-                                            <div className="container">
-                                                <div className="row mb-3">
-                                                    <div className="col-6 d-flex justify-content-center">
-                                                        <div className="box bg-primary rounded-circle" style={{width: '40px', height: '40px'}}></div>
-                                                    </div>
-                                                    <div className="col-6 d-flex justify-content-center">
-                                                        <div className="box bg-secondary rounded-circle" style={{width: '40px', height: '40px'}}></div>
-                                                    </div>
-                                                </div>
-                                                <div className="row">
-                                                    <div className="col-6 d-flex justify-content-center">
-                                                        <div className="box bg-success rounded-circle" style={{width: '40px', height: '40px'}}></div>
-                                                    </div>
-                                                    <div className="col-6 d-flex justify-content-center">
-                                                        <div className="box bg-danger rounded-circle" style={{width: '40px', height: '40px'}}></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h5 className="card-title text-center mt-3">{value.nome}</h5>
-                                            <p className="card-text text-center text-muted">{value.usuario_id}</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div className="modal fade bd-example-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                    <div className="modal-dialog modal-lg">
-                                        <div className="position-relative">
-                                            <div className="modal-content position-absolute top-0 start-0 p-4">
-                                                <div className="container-grid">
-                                                    <div className="box bg-primary"></div>
-                                                    <div className="box bg-secondary"></div>
-                                                    <div className="box bg-success"></div>
-                                                    <div className="box bg-danger"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <ItemSala sala={sala} key={index}></ItemSala>
                         );
                     }) :<></>
                 }

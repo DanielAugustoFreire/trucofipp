@@ -5,7 +5,7 @@ export default function DeckCarta({ deck_jogador, rotate, cor, is_row , is_right
 
     useEffect(() =>{
 
-    })
+    }, [])
 
     return (
         <div className={`bg-${cor} text-white p-2 flex-fill`}>
