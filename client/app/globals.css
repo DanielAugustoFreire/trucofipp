@@ -32,3 +32,17 @@ a {
     color-scheme: dark;
   }
 }
+
+
+.container-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.box {
+  padding: 20px;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+}

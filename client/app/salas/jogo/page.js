@@ -33,7 +33,7 @@ function MeuComponente() {
   useEffect(() => {
     socket.current = io(URL);
 
-    socket.current.emit("HandShake", {  // ENVIA MENSAGEM PARA O BACKEND
+    socket.current.emit("HandShake", {
       mensagem: "Front -> Back"
     })
 

@@ -31,17 +31,57 @@ export default function Salas(){
                     salas ? 
                     salas.map((value, index) => {
                         return (
-                            <div key={index} className="col-4 d-flex justify-content-center align-items-center mb-4">
-                                <div className="card text-center bg-dark text-white" style={{ width: '18rem' }}>
-                                    <div className="card-body d-flex flex-column justify-content-center align-items-center" style={{ height: '200px' }}>
-                                        <h5 className="card-title">{value.nome}</h5>
-                                        <p className="card-text">{value.usuario_id}</p>
+                            <div>
+                                <div data-toggle="modal" data-target=".bd-example-modal-lg">
+                                    <div key={index} className="card mb-3 shadow-sm">
+                                        <div className="card-body">
+                                            <div className="container">
+                                                <div className="row mb-3">
+                                                    <div className="col-6 d-flex justify-content-center">
+                                                        <div className="box bg-primary rounded-circle" style={{width: '40px', height: '40px'}}></div>
+                                                    </div>
+                                                    <div className="col-6 d-flex justify-content-center">
+                                                        <div className="box bg-secondary rounded-circle" style={{width: '40px', height: '40px'}}></div>
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-6 d-flex justify-content-center">
+                                                        <div className="box bg-success rounded-circle" style={{width: '40px', height: '40px'}}></div>
+                                                    </div>
+                                                    <div className="col-6 d-flex justify-content-center">
+                                                        <div className="box bg-danger rounded-circle" style={{width: '40px', height: '40px'}}></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h5 className="card-title text-center mt-3">{value.nome}</h5>
+                                            <p className="card-text text-center text-muted">{value.usuario_id}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div className="modal fade bd-example-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                    <div className="modal-dialog modal-lg">
+                                        <div className="position-relative">
+                                            <div className="modal-content position-absolute top-0 start-0 p-4">
+                                                <div className="container-grid">
+                                                    <div className="box bg-primary"></div>
+                                                    <div className="box bg-secondary"></div>
+                                                    <div className="box bg-success"></div>
+                                                    <div className="box bg-danger"></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         );
                     }) :<></>
                 }
+
+
+
+
                 <div className="d-flex justify-content-center align-items-center mt-4">
                     <button className="btn btn-primary rounded-circle" style={{ width: '50px', height: '50px' }}>+</button>
                 </div>
