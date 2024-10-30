@@ -7,6 +7,7 @@ import ItemSala from "./components/itemSala";
 export default function Salas(){
 
     let [salas, setSalas] = useState([])
+    let [players, setPlayers] = useState([])
 
     function carregarSalas(){
         fetch("http://localhost:5000/sala")
@@ -25,6 +26,24 @@ export default function Salas(){
             nome: "Sala 3",
             usuario_nome: "Daniel"
         }]
+        let players = [{
+            id: 1,
+            nome: "Daniel",
+            time: 1
+        },{
+            id: 2,
+            nome: "João",
+            time: 2
+        },{
+            id: 3,
+            nome: "Maria",
+            time: 1
+        },{
+            id: 4,
+            nome: "José",
+            time: 2
+        }]
+        setPlayers(players)
         setSalas(data)
     }
 
@@ -41,7 +60,7 @@ export default function Salas(){
                     salas ? 
                     salas.map((sala, index) => {
                         return (
-                            <ItemSala sala={sala} key={index}></ItemSala>
+                            <ItemSala sala={sala} players={players} key={index}></ItemSala>
                         );
                     }) :<></>
                 }
