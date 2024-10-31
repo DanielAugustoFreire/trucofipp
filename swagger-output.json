@@ -129,7 +129,11 @@
       }
     },
     "/auth/api/validarFront": {
-      "get": {
+      "post": {
+        "tags": [
+          "Autenticacao"
+        ],
+        "summary": "Valida baseado no cookie advindo do front-end",
         "description": "",
         "responses": {
           "200": {
@@ -141,12 +145,30 @@
           "500": {
             "description": "Internal Server Error"
           }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "chave": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
         }
       }
     },
     "/sala/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Salas"
+        ],
+        "summary": "ListarSala",
+        "description": "Essa rota lista as salas",
         "responses": {
           "200": {
             "description": "OK"
@@ -158,7 +180,7 @@
       },
       "post": {
         "tags": [
-          "Sala"
+          "Salas"
         ],
         "summary": "Criar sala",
         "description": "Essa rota cria uma sala",
