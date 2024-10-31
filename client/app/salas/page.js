@@ -63,10 +63,7 @@ export default function Salas(){
                             <ItemSala sala={sala} players={players} key={index}></ItemSala>
                         );
                     }) :<></>
-                }
-
-
-
+                } 
 
                 <div className="d-flex justify-content-center align-items-center mt-4">
                     <button className="btn btn-primary rounded-circle" style={{ width: '50px', height: '50px' }}>+</button>
