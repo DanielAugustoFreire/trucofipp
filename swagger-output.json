@@ -213,6 +213,30 @@
           }
         }
       }
+    },
+    "/sala/{id}": {
+      "get": {
+        "tags": [
+          "Salas"
+        ],
+        "summary": "ListarSala",
+        "description": "Essa rota lista as salas",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
     }
   },
   "components": {
