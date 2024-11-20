@@ -33,27 +33,27 @@ router.post("/token", (req,res) => {
 router.post("/cadastrar", (req,res) => {
 // #swagger.tags = ['Autenticacao']
 // #swagger.summary = 'Cadastra um novo usuario'
-/*  #swagger.requestBody = {
-    required: true,
-    content: {
-        "application/json": {
-            schema: {
-                type: "object",
-                properties: {
-                    nome: { type: "string" },
-                    email: { type: "string" },
-                    senha: { type: "string" },
+    /*  #swagger.requestBody = {
+        required: true,
+        content: {
+            "application/json": {
+                schema: {
+                    type: "object",
+                    properties: {
+                        nome: { type: "string" },
+                        email: { type: "string" },
+                        senha: { type: "string" },
+                    },
+                    required: ["nome","email", "senha"]
                 },
-                required: ["nome","email", "senha"]
-            },
-            example: {
-                nome: "Daniel Augusto",
-                email: "danielaugustosant@hotmail.com",
-                senha: "12345"
+                example: {
+                    nome: "Daniel Augusto",
+                    email: "danielaugustosant@hotmail.com",
+                    senha: "12345"
+                }
             }
         }
-    }
-} */
+    } */
 
     ctrl.cadastrar(req,res);
 })
