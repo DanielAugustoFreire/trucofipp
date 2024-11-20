@@ -26,7 +26,7 @@ router.get(`/`, (req, res) => {
     //     }
     // }
     
-    ctrl.iniciarPartidaCartas(req,res);
+    ctrl.PegarCartasRodada(req,res);
 });
 
 export default router;

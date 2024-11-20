@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ItemSala from "./components/itemSala";
+import httpClient from "../utils/httpClient";
 
 
 export default function Salas(){
@@ -10,10 +11,10 @@ export default function Salas(){
     let [players, setPlayers] = useState([])
 
     function carregarSalas(){
-        fetch("http://localhost:5000/sala")
+        httpClient.get("/sala")
         .then((res) => res.json())
         .then((data) => {
-            setSalas(data);
+            setSalas(data); 
         })
         .catch((err) => {
             console.log(err);
@@ -25,7 +26,7 @@ export default function Salas(){
             id: 3,
             nome: "Sala 3",
             usuario_nome: "Daniel"
-        }]
+        },  ]
         let players = [{
             id: 1,
             nome: "Daniel",
@@ -48,7 +49,7 @@ export default function Salas(){
     }
 
 
-    useEffect(() => {
+    useEffect(() => {   
         carregarSalasSemNet();
     }, []);
 
@@ -63,10 +64,7 @@ export default function Salas(){
                             <ItemSala sala={sala} players={players} key={index}></ItemSala>
                         );
                     }) :<></>
-                }
-
-
-
+                } 
 
                 <div className="d-flex justify-content-center align-items-center mt-4">
                     <button className="btn btn-primary rounded-circle" style={{ width: '50px', height: '50px' }}>+</button>

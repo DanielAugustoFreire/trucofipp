@@ -31,12 +31,13 @@ export default function ItemSala(props){
                     <div className="modal-dialog modal-lg">
                         <div className="position-relative">
                             <div className="modal-content position-absolute top-0 start-0 p-4">
-                                <div className="container-grid">
+                                <div className="container-grid p-2">
                                     <ItemPlayerIcon modal={true} players={players[0]}></ItemPlayerIcon>
                                     <ItemPlayerIcon modal={true} players={players[1]}></ItemPlayerIcon>
                                     <ItemPlayerIcon modal={true} players={players[2]}></ItemPlayerIcon>
                                     <ItemPlayerIcon modal={true} players={players[3]}></ItemPlayerIcon>
                                 </div>
+                                    <button className="btn bg-warning text-dark">Entrar na sala</button>
                             </div>
                         </div>
                     </div>

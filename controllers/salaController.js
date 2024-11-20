@@ -18,6 +18,10 @@ export default class salaController{
         }
     }
 
+    async listarPlayers(req,res){
+        
+    }
+
     async criarSala(req,res){
         let banco = new Database();
         await banco.AbreTransacao();

@@ -35,6 +35,18 @@ export default class salaRepositories extends BaseRepositories{
         return result[0]["qtd"] > 0;
     }
 
+    async obterSalaPorId(sala){
+        //let sql = "SELECT * FROM tb_sala s inner join tb_participante p on s.sal_id = p.sal_id where s.sal_id = ?"; 
+
+        let sql = "SELECT * FROM tb_sala where sal_id = ?";
+
+        let value = [sala.id];
+
+        let result = await this.db.ExecutaComando(sql, value);
+
+        return this.toMap(result);
+    }
+
     toMap(rows) {
         
         
