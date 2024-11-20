@@ -12,6 +12,12 @@ router.get("/", (req, res) => {
     // #swagger.description = 'Essa rota lista as salas'
     ctrl.listarSalas(req,res);
 })
+router.get("/:id", (req, res) => {
+    // #swagger.tags = ['Salas']
+    // #swagger.summary = 'ListarSala
+    // #swagger.description = 'Essa rota lista as salas'
+    ctrl.listarPlayers(req,res);
+})
 router.post(`/`, (req, res) => {
     // #swagger.tags = ['Salas']
     // #swagger.summary = 'Criar sala
