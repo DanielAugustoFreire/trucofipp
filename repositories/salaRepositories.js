@@ -6,14 +6,47 @@ export default class salaRepositories extends BaseRepositories{
     constructor(db){
         super(db)
     }
-
-    async listarSalas(){
-        let sql = "select * from tb_sala";
-
+    async listarSalas() {
+        let sql = `SELECT s.sal_id as sala_id, s.sal_nome as sala_name, p.usu_id as player_id, u.usu_nome as player_name, p.eqp_id as player_time 
+                   FROM tb_sala s 
+                   left JOIN tb_participante p ON s.sal_id = p.sal_id 
+                   left JOIN tb_usuario u ON u.usu_id = p.usu_id
+                   left JOIN tb_jogo j ON p.sal_id = j.sal_id
+                   WHERE j.jog_dtfim IS NULL
+                   ORDER BY s.sal_id ASC`;
+    
         let result = await this.db.ExecutaComando(sql);
-
-        return this.toMap(result);
+    
+        let retorno = [];
+        let currentSala = null;
+    
+        for (let i = 0; i < result.length; i++) {
+            if (!currentSala || currentSala.sala_id !== result[i].sala_id) {
+                if (currentSala) {
+                    retorno.push(currentSala);
+                }
+    
+                currentSala = {
+                    sala_id: result[i].sala_id,
+                    sala_name: result[i].sala_name,
+                    players: []
+                };
+            }
+    
+            currentSala.players.push({
+                player_id: result[i].player_id,
+                player_name: result[i].player_name,
+                player_time: result[i].player_time
+            });
+        }
+    
+        if (currentSala) {
+            retorno.push(currentSala);
+        }
+    
+        return retorno;
     }
+    
 
     async criarSala(nome, usuario_id){
         let sql = "insert into tb_sala (sal_nome, usu_id) values (?,?)";
@@ -45,6 +78,16 @@ export default class salaRepositories extends BaseRepositories{
         let result = await this.db.ExecutaComando(sql, value);
 
         return this.toMap(result);
+    }
+
+    async obterNumeroJogadores(sala){
+        let sql = "SELECT COUNT(*) as participantes FROM tb_sala s inner join tb_participante p on s.sal_id = p.sal_id where s.sal_id = ?"
+
+        let value = [sala.id];
+
+        let result = await this.db.ExecutaComando(sql, value);
+
+        return result[0]["participantes"];
     }
 
     toMap(rows) {

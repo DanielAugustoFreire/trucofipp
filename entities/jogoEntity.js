@@ -21,6 +21,7 @@ export default class JogoEntity extends BaseEntity{
     set sala(value) {this.#sala = value;}
 
     constructor( id, jogo_inicio, jogo_fim, sala){
+        super();
         this.#id = id;
         this.#jogo_inicio = jogo_inicio;
         this.#jogo_fim = jogo_fim;
