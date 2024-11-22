@@ -9,6 +9,16 @@ const httpClient = {
         })
     },
 
+    get_headers: function(endpoint, cookie) {
+        return fetch(baseUrl + endpoint, {
+            credentials: 'include',
+            headers: {
+                Authorization: `Bearer ${cookie}`,
+                'Content-Type': 'application/json' // (opcional, dependendo do tipo de requisição)
+            }
+        });
+    },
+
     post: function(endpoint, body) {
         return fetch(baseUrl + endpoint, {
             method: "POST",

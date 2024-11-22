@@ -2,7 +2,7 @@ import CartaRepositories from '../repositories/cartaRepositories.js';
 
 export default class CartaController {
 
-    async PegarCartasRodada(req, res) {
+    async PegarCartasRodadaMao(req, res) {
         try {
             let repo = new CartaRepositories();
             let deck = await repo.obter13Cartas();

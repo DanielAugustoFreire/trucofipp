@@ -80,7 +80,7 @@ export default class salaRepositories extends BaseRepositories{
         return this.toMap(result);
     }
 
-    async obterNumeroJogadores(sala){
+    async obterNumeroJogadoresPartidasValidas(sala){
         let sql = "SELECT COUNT(*) as participantes FROM tb_sala s inner join tb_participante p on s.sal_id = p.sal_id where s.sal_id = ?"
 
         let value = [sala.id];

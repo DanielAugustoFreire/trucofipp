@@ -23,10 +23,16 @@ export default function ItemModal({ players = [], salas }){
                                             <ItemPlayerIcon key={index} modal={true} players={player} />
                                         ))}
                                     </div>
-                                    <button className="btn bg-warning text-dark">Entrar na sala</button>
+
+                                    {/* Alinhando texto e botão na mesma linha */}
+                                    <div className="d-flex justify-content-between align-items-center mt-3">
+                                        <h5 className="text-center mb-0">Aguarde o início da partida...</h5>
+                                        <button className="btn bg-danger text-white">Sair da Sala</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
     );

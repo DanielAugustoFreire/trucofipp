@@ -58,7 +58,7 @@ router.post("/cadastrar", (req,res) => {
     ctrl.cadastrar(req,res);
 })
 
-router.post("/api/validarFront", (req,res) => {
+router.get("/api/validarFront", (req,res) => {
     // #swagger.tags = ['Autenticacao']
     // #swagger.summary = 'Valida baseado no cookie advindo do front-end'
     ctrl.validarFrontEnd(req,res)

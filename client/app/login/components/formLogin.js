@@ -29,7 +29,12 @@ export default function FormLogin( ){
       })
       .then(data => {
         if(data){
-            Cookies.set("chave", data, { expires: 2 / 24 });
+            Cookies.set("chave", data, { 
+              expires: 2 / 24,
+              path: '/',
+              sameSite: 'None',
+              secure: false,
+            });
           window.location.href = "/";
         }else{
           alert("Email ou senha incorretos");

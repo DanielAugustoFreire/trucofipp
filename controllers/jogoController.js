@@ -18,26 +18,23 @@ export default class JogoController{
                 let sala = new SalaEntity(idSala, "", "");
                 let salaRepo = new SalaRepository(banco);
                 let salaValidacao = await salaRepo.obterSalaPorId(sala);
-                let numeroJogadores = await salaRepo.obterNumeroJogadores(sala);
-                if(salaValidacao.length > 0){
-                    if(numeroJogadores == 4){
-                        let repo = new JogoRepository(banco);
-                        let jogo = await repo.iniciarJogo(jogoEntity);
-        
-                        if(jogo){
-                            await banco.Commit();
-                            res.status(200).json(jogo);
-                        }
-                    }else{
-                        res.status(400).json({msg: "Sala não possui 4 jogadores"});
-                    }
- 
-                }else{
+                let numeroJogadores = await salaRepo.obterNumeroJogadoresPartidasValidas(sala);
+                if(!salaValidacao.length > 0){
                     res.status(400).json({msg: "Sala não encontrada"});
                     return;
                 }
-
-
+                if(!numeroJogadores != 4){
+                    res.status(400).json({msg: "Sala não possui 4 jogadores"});
+                    return;
+                }else{
+                    let repo = new JogoRepository(banco);
+                    let jogo = await repo.iniciarJogo(jogoEntity);
+    
+                    if(jogo){
+                        await banco.Commit();
+                        res.status(200).json(jogo);
+                    }
+                }
             }else{
                 res.status(400).json({msg: "Id da sala não informado"});
             }
