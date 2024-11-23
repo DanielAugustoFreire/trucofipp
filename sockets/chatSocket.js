@@ -8,7 +8,7 @@ export default function socket(io) {
 
     socket.on("HandShake", ({ mensagem }) => { // RECEBE MENSAGEM DO FRONTEND
       console.log(mensagem);
-      socket.emit("CarregarCartas");  // ENVIA MENSAGEM PARA O FRONTEND
+      socket.emit("CarregarCartas", "Back -> Front");  // ENVIA MENSAGEM PARA O FRONTEND
     });
 
     socket.on("ValidarPessoasSala", (msg) => {
