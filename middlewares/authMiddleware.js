@@ -45,7 +45,7 @@ export default class AuthMiddleware {
     async validarParaFrontEnd(cookie) {
         if (cookie) {
             try {
-            let objUsuario = jwt.verify(cookie.value, SEGREDO);
+            let objUsuario = jwt.verify(cookie, SEGREDO);
             let repo = new UsuarioRepositorie();
             let usuario = await repo.obter(objUsuario.id);
             let auth = new AuthMiddleware();

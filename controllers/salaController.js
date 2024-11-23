@@ -14,8 +14,12 @@ export default class salaController{
                 throw new Error("Erro ao listar salas");
             }
         }catch(ex){
-            res.status(500).json({mensagem: "Erro ao listar salas", erro: ex});
+            res.status(500).json({msg: "Erro ao listar salas", erro: ex});
         }
+    }
+
+    async listarPlayers(req,res){
+        
     }
 
     async criarSala(req,res){
@@ -27,12 +31,12 @@ export default class salaController{
             let salaExiste = await repo.obterPorNome(nome);
             if(salaExiste){
                 await banco.Rollback();
-                res.status(400).json({mensagem: "Sala já existe"});
+                res.status(400).json({msg: "Sala já existe"});
             }
             let criarSala = await repo.criarSala(nome, usuario_id);
             if(criarSala){
                 await banco.Commit();
-                res.status(201).json({mensagem: "Sala criada com sucesso"});
+                res.status(201).json({msg: "Sala criada com sucesso"});
             }
             else{
                 throw new Error();
@@ -40,7 +44,7 @@ export default class salaController{
         }
         catch(ex){
             await banco.Rollback();
-            res.status(500).json({mensagem: "Erro ao criar sala", erro: ex});
+            res.status(500).json({msg: "Erro ao criar sala", erro: ex});
         }
     }
 

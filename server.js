@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 
 import cartaRoute from './routes/cartaRoute.js'
 import authRoute from './routes/authRoute.js'
+import jogoRoute from './routes/jogoRoute.js'
 import salaRoute from './routes/salaRoute.js'
 
 import { createRequire } from "module";
@@ -24,7 +25,8 @@ import socketInit from './sockets/chatSocket.js'
 
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000"
+        origin: "http://localhost:3000",
+        credentials: true
     }
 });
 
@@ -41,6 +43,7 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(outputJson));
 app.use('/carta', cartaRoute);
 app.use('/auth', authRoute);
 app.use('/sala', salaRoute);
+app.use('/jogo', jogoRoute);
 
 server.listen(5000, function() {
     console.log("backend em execução");

@@ -1,37 +1,42 @@
 import { NextResponse } from 'next/server';
+import httpClient from './app/utils/httpClient';
+import Cookies from 'js-cookie';
 
 
 async function isAuthenticated(request) {
-    let chave = request.cookies.get("chave")
-    console.log(chave)
-    const response = await fetch("http://localhost:5000/auth/api/validarFront", {
-        method: 'POST',
-        credentials: 'include',
-        body: JSON.stringify({ chave }),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
 
-    if (response.status === 200) {
-        const data = await response.json();
-        return data;
+    try{
+        let cookie = request.cookies.get("chave")
+        cookie = cookie.value;
+    
+        const response = await httpClient.get_headers("/auth/api/validarFront", cookie);
+    
+        if (response.status === 200) {
+            const data = await response.json();
+            return data;
+        }
+    
+        return false;
     }
-
-    return false;
+    catch(ex){
+        return false;
+    }
 }
 
 export async function middleware(request) {
-    const pathname = request.nextUrl.pathname;
     
     const autenticado = await isAuthenticated(request);
     
-    console.log(`Requisição para: ${pathname}, autenticado:`, autenticado.id);
+    Cookies.set("chave", autenticado, { 
+        expires: 2 / 24,
+        path: '/',
+        sameSite: 'None',
+        secure: false,
+      });
 
-    if (autenticado) {
+    if (!autenticado) {
         return NextResponse.redirect(new URL('/login', request.url));
     }
-
     return NextResponse.next();
 }
 

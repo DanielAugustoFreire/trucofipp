@@ -70,9 +70,10 @@ export default class AutenticacaoController {
 
     async validarFrontEnd(req,res){
         try{
-            let {  chave  } = req.body;
+            let chave = req.headers["authorization"];
+            chave = chave.split(" ")[1];
             let auth = new AuthMiddleware()
-            let usuario = await auth.validarParaFrontEnd(chave);
+            let usuario = await auth.validarParaFrontEnd(chave);    
             if(usuario){
                 res.status(200).json(usuario)
             }else{

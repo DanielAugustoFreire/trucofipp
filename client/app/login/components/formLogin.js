@@ -1,5 +1,6 @@
 import { useRef } from "react"
 import Cookies from 'js-cookie'
+import httpClient from "@/app/utils/httpClient";
 
 export default function FormLogin( ){
   
@@ -17,13 +18,8 @@ export default function FormLogin( ){
     {
       objUsuario.email = emailRef.current.value;
       objUsuario.senha = senhaRef.current.value;
-      fetch("http://localhost:5000/auth/token",{
-        method: "POST", 
-        body: JSON.stringify(objUsuario),
-        headers: {
-          "Content-Type": "application/json"
-        },
-      })
+
+      httpClient.post("/auth/token", objUsuario)
       .then(response => {
         if(response.status === 200){
           return response.json();
@@ -33,7 +29,12 @@ export default function FormLogin( ){
       })
       .then(data => {
         if(data){
-            Cookies.set("chave", data, { expires: 2 / 24 });
+            Cookies.set("chave", data, { 
+              expires: 2 / 24,
+              path: '/',
+              sameSite: 'None',
+              secure: false,
+            });
           window.location.href = "/";
         }else{
           alert("Email ou senha incorretos");

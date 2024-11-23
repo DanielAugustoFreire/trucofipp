@@ -8,25 +8,10 @@ const router = express.Router();
 
 router.get(`/`, (req, res) => {
     // #swagger.tags = ['Cartas']
-    // #swagger.summary = 'Pegar 12 cartas'
-    // #swagger.description = 'Essa rota pega 12 cartas do baralho'
-    // #swagger.responses[200] = {
-    //     description: 'Cartas retornadas',
-    //     schema: {
-    //         type: "array",
-    //         items: {
-    //             $ref: "#/definitions/Carta"
-    //         }
-    //     }
-    // }
-    // #swagger.responses[500] = {
-    //     description: 'Erro no servidor',
-    //     schema: {
-    //         $ref: "#/definitions/Erro"
-    //     }
-    // }
+    // #swagger.summary = 'Pegar 12 cartas + Vira'
+    // #swagger.description = 'Essa rota pega 12 cartas do baralho + a VIRA'
     
-    ctrl.iniciarPartidaCartas(req,res);
+    ctrl.PegarCartasRodadaMao(req,res);
 });
 
 export default router;

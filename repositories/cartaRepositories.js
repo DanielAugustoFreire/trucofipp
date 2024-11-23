@@ -1,8 +1,13 @@
 import CartaEntity from "../entities/cartaEntity.js";
+import BaseRepositories from "./baseRepositories.js";
 
 
-export default class CartaRepositories {
+export default class CartaRepositories extends BaseRepositories {
 
+    constructor(db) {
+        super(db)
+    }
+    
 
     async obter13Cartas() {
         try {

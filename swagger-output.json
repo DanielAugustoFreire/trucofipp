@@ -16,8 +16,8 @@
         "tags": [
           "Cartas"
         ],
-        "summary": "Pegar 12 cartas",
-        "description": "Essa rota pega 12 cartas do baralho",
+        "summary": "Pegar 12 cartas + Vira",
+        "description": "Essa rota pega 12 cartas do baralho + a VIRA",
         "responses": {
           "200": {
             "description": "OK"
@@ -130,7 +130,20 @@
     },
     "/auth/api/validarFront": {
       "get": {
+        "tags": [
+          "Autenticacao"
+        ],
+        "summary": "Valida baseado no cookie advindo do front-end",
         "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -146,7 +159,11 @@
     },
     "/sala/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Salas"
+        ],
+        "summary": "ListarSala",
+        "description": "Essa rota lista as salas",
         "responses": {
           "200": {
             "description": "OK"
@@ -158,7 +175,7 @@
       },
       "post": {
         "tags": [
-          "Sala"
+          "Salas"
         ],
         "summary": "Criar sala",
         "description": "Essa rota cria uma sala",
@@ -188,6 +205,56 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/sala/{id}": {
+      "get": {
+        "tags": [
+          "Salas"
+        ],
+        "summary": "ListarSala",
+        "description": "Essa rota lista as salas",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/jogo/{idSala}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "idSala",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
