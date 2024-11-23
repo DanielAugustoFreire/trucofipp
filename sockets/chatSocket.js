@@ -6,13 +6,12 @@ export default function socket(io) {
 
   io.on('connection', (socket) => {
 
-    socket.on("HandShake", ({ mensagem }) => { // RECEBE MENSAGEM DO FRONTEND
-      console.log(mensagem);
-      socket.emit("CarregarCartas", "Back -> Front");  // ENVIA MENSAGEM PARA O FRONTEND
-    });
-
     socket.on("ValidarPessoasSala", (msg) => {
-      io.to(msg.codSala).emit("asd", msg);
+      if(msg.id == 1 ){
+        socket.emit("CarregarCartas", "Carregar Cartas");  // ENVIA MENSAGEM PARA O FRONTEND
+      }else{
+        socket.emit("Negado", "Acesso Negado");  // ENVIA MENSAGEM PARA O FRONTEND
+      }
     })
   });
 

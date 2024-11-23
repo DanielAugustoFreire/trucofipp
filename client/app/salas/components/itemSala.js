@@ -13,14 +13,13 @@ export default function ItemSala(props){
                     <div className="card-body">
                         <div className="container">
                         <div className="row mb-3">
-                            {players.map((player, index) => (
-                                index < 2 && <ItemPlayerIcon key={index} player={player} />
-                            ))}
-                        </div>
-                        <div className="row">
-                            {players.map((player, index) => (
-                                index >= 2 && index < 4 && <ItemPlayerIcon key={index} player={player} />
-                            ))}
+                        {players.map((player, index) => (
+                            index < 2 && <ItemPlayerIcon key={player.id} player={player} />
+                        ))}
+                        {players.map((player, index) => (
+                            index >= 2 && index < 4 && <ItemPlayerIcon key={player.id} player={player} />
+                        ))}
+
                         </div>
 
                         </div>

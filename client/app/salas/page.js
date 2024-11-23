@@ -57,14 +57,13 @@ export default function Salas(){
             <div className="row">
                 {
                     salas ? 
-                    salas.map((sala, index) => {
-                        return (
-                            <>
-                                <ItemSala sala={sala} players={sala.players} key={index}></ItemSala>
-                                <ItemModal players={sala.players} salas={sala.id}></ItemModal>
-                            </>
-                        );
-                    }) : <></>
+                    salas.map((sala) => (
+                        <div key={sala.id}>
+                            <ItemSala sala={sala} players={sala.players}></ItemSala>
+                            <ItemModal players={sala.players} salas={sala.id}></ItemModal>
+                        </div>
+                    ))
+                     : <></>
                 } 
     
                 <div className="d-flex justify-content-center align-items-center mt-4">

@@ -20,7 +20,7 @@ export default function ItemModal({ players = [], salas }){
                                     <div className="container-grid p-2">
                                         {/* Mapeando os jogadores da sala */}
                                         {players.map((player, index) => (
-                                            <ItemPlayerIcon key={index} modal={true} players={player} />
+                                            <ItemPlayerIcon key={player.id} modal={true} players={player} />
                                         ))}
                                     </div>
 

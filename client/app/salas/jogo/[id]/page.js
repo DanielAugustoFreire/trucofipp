@@ -6,7 +6,8 @@ import IconeJogo from "./components/iconJogo.js";
 import React, { useEffect, useState, useRef } from "react";
 import { io } from "socket.io-client";
 
-function MeuComponente() {
+function MeuComponente({params: { id }}) {
+  
   const [cartas, setCartas] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -31,17 +32,24 @@ function MeuComponente() {
   }
 
   useEffect(() => {
+
+
     socket.current = io(URL);
 
-    socket.current.emit("HandShake", {
-      mensagem: "Front -> Back"
+    socket.current.emit("ValidarPessoasSala", {
+      id: id
     }, [])
 
+    
     socket.current.on("CarregarCartas", (data) => {
       console.log("Mensagem recebida do backend:", data);
       carregarCartas();
     });
 
+    socket.current.on("Negado", (data) => {
+      window.location.href = "http://localhost:3000/salas";
+    });
+    
     return () => {
       socket.current.off("CarregarCartas", (data) => {
         console.log(data)
