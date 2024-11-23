@@ -3,6 +3,7 @@ import "./globals.css";
 import "../public/template/css/sb-admin-2.min.css"
 import "../public/template/css/fontawesome-free/css/all.min.css"
 import {Nunito} from 'next/font/google'
+import { UserProvider } from "./context/userContext";
 
 const nunito = Nunito({subsets: ['latin']});
 
@@ -13,6 +14,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+    <UserProvider>
     <html lang="pt-br">
       <body className={nunito.className}>
         {children}
@@ -22,5 +24,6 @@ export default function RootLayout({ children }) {
         <script src="/template/js/sb-admin-2.min.js"></script>
       </body>
     </html>
+    </UserProvider>
   );
 }

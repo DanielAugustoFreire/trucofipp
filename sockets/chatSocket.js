@@ -1,4 +1,4 @@
-
+import JogoRepository from "../repositories/jogoRepository.js";
 
 
 export default function socket(io) {
@@ -6,13 +6,19 @@ export default function socket(io) {
 
   io.on('connection', (socket) => {
 
-    socket.on("HandShake", ({ mensagem }) => { // RECEBE MENSAGEM DO FRONTEND
-      console.log(mensagem);
-      socket.emit("CarregarCartas", "Back -> Front");  // ENVIA MENSAGEM PARA O FRONTEND
-    });
-
-    socket.on("asd", (msg) => {
-      io.to(msg.codSala).emit("asd", msg);
+    socket.on("ValidarPessoasSala", async (msg) => {
+      try{
+        let joroRepo = new JogoRepository();
+        let result = await joroRepo.buscarJogoPorIdJogo(msg.id);
+        if(result.length > 0){
+          socket.emit("CarregarCartas", "Carregar Cartas");  // ENVIA MENSAGEM PARA O FRONTEND
+        }else{
+          socket.emit("Negado", "Acesso Negado");  // ENVIA MENSAGEM PARA O FRONTEND
+        }
+      }
+      catch(ex){
+        socket.emit("Negado", "Erro Interno");  // ENVIA MENSAGEM PARA O FRONTEND
+      }
     })
   });
 

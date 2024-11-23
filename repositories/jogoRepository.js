@@ -17,4 +17,14 @@ export default class JogoRepository extends BaseRepository{
         return result;
     }
 
+    async buscarJogoPorIdJogo(jogo_id){
+        let sql = "SELECT * FROM tb_jogo WHERE jog_id = ?";
+
+        let values = [jogo_id];
+
+        let result = await this.db.ExecutaComando(sql, values);
+
+        return result;
+    }
+
 }

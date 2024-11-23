@@ -1,6 +1,8 @@
-import { useRef } from "react"
+import { useRef, useContext } from "react"
 import Cookies from 'js-cookie'
 import httpClient from "@/app/utils/httpClient";
+import UserContext, { UserProvider } from "@/app/context/userContext";
+import { useRouter } from "next/navigation";
 
 export default function FormLogin( ){
   
@@ -12,6 +14,9 @@ export default function FormLogin( ){
   let emailRef = useRef();
   let senhaRef = useRef();
 
+  const { setUser } = useContext(UserContext);
+
+  const router = useRouter()
 
   function Login(){
     if(!(emailRef.current.value === "" || senhaRef.current.value === ""))
@@ -29,16 +34,14 @@ export default function FormLogin( ){
       })
       .then(data => {
         if(data){
-            Cookies.set("chave", data, { 
-              expires: 2 / 24,
-              path: '/',
-              sameSite: 'None',
-              secure: false,
-            });
-          window.location.href = "/";
+          setUser(data);
+
+          localStorage.setItem("usuario", JSON.stringify(data[0]));
+
+          router.push("/");
         }else{
           alert("Email ou senha incorretos");
-          window.location.href = "/login";
+          router.push("/login");
         }
       })
     }else{

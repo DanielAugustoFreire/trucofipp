@@ -23,7 +23,7 @@ export default class JogoController{
                     res.status(400).json({msg: "Sala não encontrada"});
                     return;
                 }
-                if(!numeroJogadores != 4){
+                if(numeroJogadores != 4){
                     res.status(400).json({msg: "Sala não possui 4 jogadores"});
                     return;
                 }else{
@@ -32,7 +32,7 @@ export default class JogoController{
     
                     if(jogo){
                         await banco.Commit();
-                        res.status(200).json(jogo);
+                        res.status(200).json( {msg : "Partida iniciada com sucesso"} );
                     }
                 }
             }else{
