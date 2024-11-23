@@ -58,7 +58,6 @@ export default function Salas(){
                 {
                     salas ? 
                     salas.map((sala, index) => {
-                        console.log(sala, sala.players); // Certifique-se de acessar os jogadores da sala corretamente
                         return (
                             <>
                                 <ItemSala sala={sala} players={sala.players} key={index}></ItemSala>

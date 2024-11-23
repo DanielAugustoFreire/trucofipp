@@ -12,7 +12,7 @@ export default class salaRepositories extends BaseRepositories{
                    left JOIN tb_participante p ON s.sal_id = p.sal_id 
                    left JOIN tb_usuario u ON u.usu_id = p.usu_id
                    left JOIN tb_jogo j ON p.sal_id = j.sal_id
-                   WHERE j.jog_dtfim IS NULL
+                   WHERE j.jog_dtfim IS NULL and p.par_dtsaida IS NULL
                    ORDER BY s.sal_id ASC`;
     
         let result = await this.db.ExecutaComando(sql);

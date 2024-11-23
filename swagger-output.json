@@ -129,12 +129,21 @@
       }
     },
     "/auth/api/validarFront": {
-      "post": {
+      "get": {
         "tags": [
           "Autenticacao"
         ],
         "summary": "Valida baseado no cookie advindo do front-end",
         "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -144,20 +153,6 @@
           },
           "500": {
             "description": "Internal Server Error"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "chave": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
           }
         }
       }
