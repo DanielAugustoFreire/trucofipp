@@ -3,8 +3,9 @@
 import DeckCarta from "./components/deckCarta.js";
 import TomboCarta from "./components/tomboCarta.js";
 import IconeJogo from "./components/iconJogo.js";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { io } from "socket.io-client";
+import UserContext from "@/app/context/userContext.js";
 
 function MeuComponente({params: { id }}) {
   
@@ -13,6 +14,8 @@ function MeuComponente({params: { id }}) {
 
   let socket = useRef();
   const URL = "http://localhost:5000";
+
+  const { setUser } = useContext(UserContext);
 
 
   function carregarCartas() {
@@ -33,11 +36,19 @@ function MeuComponente({params: { id }}) {
 
   useEffect(() => {
 
+    let storedUser = null;
+    if (typeof window !== 'undefined') {
+      storedUser = localStorage.getItem('usuario');
+      if (storedUser != null) {
+          setUser(JSON.parse(storedUser));
+      }
+  }
 
     socket.current = io(URL);
 
     socket.current.emit("ValidarPessoasSala", {
-      id: id
+      id_sala: id,
+      user: storedUser
     }, [])
 
     

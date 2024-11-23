@@ -1,5 +1,4 @@
 import { useRef, useContext } from "react"
-import Cookies from 'js-cookie'
 import httpClient from "@/app/utils/httpClient";
 import UserContext, { UserProvider } from "@/app/context/userContext";
 import { useRouter } from "next/navigation";

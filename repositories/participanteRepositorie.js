@@ -13,4 +13,16 @@ export default class ParticipanteRepository extends BaseRepository{
         let values = [participanteEntity.dataEntrada, participanteEntity.dataSaida, participanteEntity.id, participanteEntity.id_sala, participanteEntity.id_equipe]
     }
         
+    async verificarParticipantePartidaPeloIdSala(participanteEntity){
+        let sql = 'select * from tb_participante where usu_id = ? and sal_id = ? and par_dtsaida is null'
+
+        let values = [participanteEntity.par_id, participanteEntity.id_sala]
+
+        let result = await this.banco.query(sql, values)
+
+        return this.toMap(result)
+    }
+
+    
+
 }
