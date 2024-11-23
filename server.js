@@ -19,10 +19,10 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 import http from 'http';
-const server = http.createServer(app);
 import { Server } from 'socket.io';
 import socketInit from './sockets/chatSocket.js'
 
+const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
         origin: "http://localhost:3000",

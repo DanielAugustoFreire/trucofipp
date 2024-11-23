@@ -53,7 +53,7 @@ function MeuComponente() {
 
 
 
-  if (loading) {
+  if (loading) {  
     return <div>Carregando...</div>;
   }
 
