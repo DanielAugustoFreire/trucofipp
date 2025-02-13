@@ -1,3 +1,5 @@
+import Database from "../db/database.js";
+import JogoRepository from "../repositories/jogoRepository.js";
 import BaseEntity from "./baseEntity.js";
 
 
@@ -28,5 +30,25 @@ export default class JogoEntity extends BaseEntity{
         this.#sala = sala;
     }
 
+    async iniciarJogo(){
+        let banco = Database.getInstance()
+        let jogoRepository = new JogoRepository(banco);
+        let result = await jogoRepository.iniciarJogo(this);
+        return result;
+    }
+
+    async VerificarSeOJogoExiste(sala_id){
+        let banco = Database.getInstance()
+        let jogoRepository = new JogoRepository(banco);
+        let result = await jogoRepository.VerificarSeOJogoExiste(sala_id);
+        return result;
+    }
+
+    async buscarIdsParticipantesDeterminadoJogo(jogo_id){
+        let banco = Database.getInstance()
+        let jogoRepository = new JogoRepository(banco);
+        let result = await jogoRepository.buscarIdsParticipantesDeterminadoJogo(jogo_id);
+        return result;
+    }
 
 }

@@ -13,13 +13,18 @@ export default class AutenticacaoController {
             if(email && senha) {
                 //preciso instanciar a modelo e carregar um usuario baseado no email e senha
                 let repo = new UsuarioRepositorie();
-                let usuario = await repo.validarAcesso(email, senha);
-                if(usuario.length > 0) {
+                let usuario123 = await repo.validarAcesso(email, senha);
+                if(usuario123.length > 0) {
                     let auth = new AuthMiddleware();
-                    let chave = auth.gerarToken(usuario[0].id, usuario[0].nome, usuario[0].email);
+                    let chave = auth.gerarToken(usuario123[0].id, usuario123[0].nome, usuario123[0].email);
                     res.cookie("chave", chave, {
                         httpOnly: true
                     });
+                    let usuario = {
+                        "id": usuario123[0].id,
+                        "nome": usuario123[0].nome,
+                        "email": usuario123[0].email
+                    }
                     res.status(200).json(usuario);
                 }
                 else {
@@ -37,7 +42,7 @@ export default class AutenticacaoController {
     }
 
     async cadastrar(req,res){
-        const banco = new Database();
+        const banco = Database.getInstance();
         await banco.AbreTransacao();
         try{
             let { nome, email, senha } = req.body;
@@ -55,6 +60,9 @@ export default class AutenticacaoController {
                         let usuario_criado = await repo.obter(result);
                         let chave = auth.gerarToken(usuario_criado[0].id, usuario_criado[0].nome, usuario_criado[0].email);
                         await banco.Commit();
+                        res.cookie("chave", chave, {
+                            httpOnly: true
+                        });
                         res.status(201).json({msg: "Sucesso ao inserir, Token: " + chave});
                     }
                     else

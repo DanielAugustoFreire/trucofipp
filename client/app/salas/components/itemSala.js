@@ -1,33 +1,45 @@
 import ItemPlayerIcon from "./itemPlayerIcon.js";
-import { useContext } from "react";
-import UserContext from "../../context/userContext.js";
+
 
 export default function ItemSala(props){
 
     const { sala } = props;
     const { players } = props;
 
-    const { user } = useContext(UserContext);
+    let playersEntrar = [];
+
+    let subs
+
+    if(players != null){
+        for(let i = 0; i < players.length; i++){
+            if(players[i].playet_saida == null){
+                playersEntrar.push(players[i]);
+            }
+        }
+    }
 
     return (
         <div>
-            { user.id }
-            <div data-toggle="modal" data-target={`.bd-example-modal-lg-${sala.id}`}>
+            <div data-toggle="modal" data-target={`.bd-example-modal-lg-${sala.sala_id}`}>
                 <div className="card mb-3 shadow-sm">
                     <div className="card-body">
-                        <div className="container">
+                        <div className="container" >
                         <div className="row mb-3">
-                        {players.map((player, index) => (
-                            index < 2 && <ItemPlayerIcon key={player.id} player={player} />
-                        ))}
-                        {players.map((player, index) => (
-                            index >= 2 && index < 4 && <ItemPlayerIcon key={player.id} player={player} />
-                        ))}
+                        {playersEntrar.map((player, index) => {
+                            if (index < 2) {
+                                return <ItemPlayerIcon key={player.player_id} player={player}/>;
+                            } else if (index >= 2) {
+                                return <ItemPlayerIcon key={player.player_id} player={player} />;
+                            }
+                            return null;
+                        })}
+
 
                         </div>
 
                         </div>
-                        <h5 className="card-title text-center mt-3">{sala.nome}</h5>
+                        <h5 className="card-title text-center" style={{ fontSize: '24px' }}>
+                        {sala.sala_name}</h5>
                     </div>
                 </div>
             </div>

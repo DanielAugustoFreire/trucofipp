@@ -1,4 +1,3 @@
-import CartaEntity from "../entities/cartaEntity.js";
 import BaseRepositories from "./baseRepositories.js";
 
 
@@ -8,6 +7,34 @@ export default class CartaRepositories extends BaseRepositories {
         super(db)
     }
     
+    async obterCartaPorIdJogo(jogo_id) {
+        let sql =`WITH MaoSelecionada AS (
+                    SELECT mao_id
+                    FROM tb_mao
+                    WHERE jog_id = ?
+                    ORDER BY mao_id DESC
+                    LIMIT 1
+                )
+                SELECT *
+                FROM tb_carta
+                WHERE mao_id = (SELECT mao_id FROM MaoSelecionada);
+                `
+        let values = [jogo_id];
+
+        let result = await this.db.ExecutaComando(sql, values);
+
+        return result;
+    }
+
+    async inserirCartasMao(carta){
+        let sql = 'insert into tb_carta (car_codigo, car_imagem, car_valor, car_naipe, car_vira, par_id, mao_id) values (?, ?, ?, ?, ?, ?, ?)';
+
+        let values = [carta.cod_carta, carta.imagem_carta, carta.carta_valor, carta.carta_naipe, carta.vira, carta.par_id, carta.mao_id];
+
+        let result = await this.db.ExecutaComandoLastInserted(sql, values);
+
+        return result;
+    }
 
     async obter13Cartas() {
         try {
@@ -15,71 +42,16 @@ export default class CartaRepositories extends BaseRepositories {
             const data = await response.json();
             const drawResponse = await fetch(`https://deckofcardsapi.com/api/deck/${data.deck_id}/draw/?count=13`);
             const drawData = await drawResponse.json();
-            return drawData.cards;
+            let retorno = {
+                cards : drawData.cards,
+                codigo : data.deck_id
+            }
+            return retorno;
         } catch (ex) {
             throw ex;
         }
     }
 
-    async rearanjarCartas(deck) {
-        let valueVira = this.toMap(deck[0]);
 
-        let obj_retorno = {
-            vira: valueVira,
-            deck_jogador1: [],
-            deck_jogador2: [],
-            deck_jogador3: [],
-            deck_jogador4: []
-        }
-
-        let cartas = this.toMap(deck);
-
-        for (let i = 1; i < cartas.length; i++) {
-            if (i % 4 === 1) {
-                obj_retorno.deck_jogador1.push(cartas[i]);
-            } else if (i % 4 === 2) {
-                obj_retorno.deck_jogador2.push(cartas[i]);
-            } else if (i % 4 === 3) {
-                obj_retorno.deck_jogador3.push(cartas[i]);
-            } else if (i % 4 === 0) {
-                obj_retorno.deck_jogador4.push(cartas[i]);
-            }
-        }
-
-        return obj_retorno;
-    }
-
-    toMap(rows) {
-        if(rows && typeof rows.length == "number") {
-            let lista = [];
-            for(let i = 0; i < rows.length; i++) {
-                let row = rows[i];
-                let carta = new CartaEntity();
-                carta.cod_carta = row.code;
-                carta.imagem_carta = row.image;
-                carta.carta_valor = row.value;
-                carta.carta_naipe = row.suit;
-                carta.vira = rows[0].code;
-
-                lista.push(carta);
-            }
-
-            return lista;
-        }
-        else if (rows){
-            let carta = new CartaEntity();
-
-            carta.cod_carta = rows.code;
-            carta.imagem_carta = rows.image;
-            carta.carta_valor = rows.value;
-            carta.carta_naipe = rows.suit;
-            carta.vira = rows.code
-
-            return carta;
-        }
-        else {
-            return null;
-        }
-    }
 
 }

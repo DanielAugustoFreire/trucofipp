@@ -35,8 +35,8 @@ export default function FormLogin( ){
       .then(data => {
         if(data){
           setUser(data);
-
-          localStorage.setItem("usuario", JSON.stringify(data[0]));
+          
+          localStorage.setItem("usuario", JSON.stringify(data));
 
           router.push("/");
         }else{
@@ -55,7 +55,14 @@ export default function FormLogin( ){
 
     return (
         <div>
-        <div className="divider d-flex align-items-center my-4">
+        <div
+          className="divider d-flex align-items-center my-4"
+          style={{
+            color: 'white',
+            fontFamily: 'Poppins, sans-serif',
+            fontsize: '20px'// Aplicando a fonte personalizada
+          }}
+        >
           <h2>TRUCOFIPP ONLINE</h2>
         </div>
 
@@ -65,9 +72,9 @@ export default function FormLogin( ){
             type="email"
             id="form3Example3"
             className="form-control form-control-lg"
-            placeholder="Digitge um email Valido"
+            placeholder="Digite um E-mail"
           />
-          <label className="form-label">
+          <label className="form-label" style={{ color: 'white' }} >
             Email
           </label>
         </div>
@@ -78,16 +85,16 @@ export default function FormLogin( ){
             type="password"
             id="form3Example4"
             className="form-control form-control-lg"
-            placeholder="Digite Sua senha"
+            placeholder="Digite uma Senha"
           />
-          <label className="form-label">
+          <label className="form-label" style={{ color: 'white' }}>
             Senha
           </label>
         </div>
 
         <div className="d-flex justify-content-between align-items-center">
 
-          <a href="/login/registrar" className="text-body">
+          <a href="/login/registrar"  style={{ color: 'white' }}>
             Nao tem uma conta? Registre-se
           </a>
         </div>
