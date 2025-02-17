@@ -1,13 +1,19 @@
 "use client";
 
 import Link from 'next/link';
+import { useContext, useEffect, useState } from 'react';
+import UserContext from './context/userContext';
+import LoadingSpinner from './components/LoadingSpinner';
 
 export default function Home() {
-  let usuario = {
-    email: "",
-    id: "",
-    nome: ""
-  }
+  const {user} = useContext(UserContext);
+  const [logado,setLogado] = useState(false);
+
+  useEffect(() => {
+    if(user){
+      setLogado(true)
+    }
+  }, [])
 
   return (
     <div style={{ fontFamily: 'Roboto, sans-serif', backgroundColor: '#f4f4f4' }}>
@@ -18,9 +24,14 @@ export default function Home() {
           <h1 className="fw-bold" style={{ fontSize: '2.2rem'  }}>FIPPTRUCO</h1>
         </div>
         <div>
-          <Link href="/login" className="btn btn-light shadow-sm" style={{ padding: '12px 24px', borderRadius: '30px', fontWeight: '600', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', transition: 'background-color 0.3s' }}>
+          {
+          logado ? 
+            <h4>{user.nome}</h4>
+          : 
+            <Link href="/login" className="btn btn-light shadow-sm" style={{ padding: '12px 24px', borderRadius: '30px', fontWeight: '600', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', transition: 'background-color 0.3s' }}>
             Login
-          </Link>
+            </Link>
+        }
         </div>
       </header>
 

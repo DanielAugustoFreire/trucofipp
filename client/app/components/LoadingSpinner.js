@@ -6,7 +6,7 @@ export default function LoadingSpinner({ tamanho , tamanho_imagem}) {
     let tamanho_ret = tamanho ? tamanho : 10;
     
     return (
-
+        
         <div
             style={{
                 display: "flex",
