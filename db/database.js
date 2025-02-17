@@ -2,18 +2,30 @@ import mysql from 'mysql2';
 
 export default class Database {
 
+    static #instance = null;
     #conexao;
 
-    get conexao() { return this.#conexao;} set conexao(conexao) { this.#conexao = conexao; }
+    get conexao() { return this.#conexao;} 
+    set conexao(conexao) { this.#conexao = conexao; }
 
     constructor() {
+        if(Database.#instance) {
+            throw new Error("Use Database.getInstance()!");
+        }
 
         this.#conexao = mysql.createPool({
-            host: '132.226.245.178', //endereço do nosso banco de dados na nuvem
+            host: 'localhost', //endereço do nosso banco de dados na nuvem
             database: 'ATIVIDADE_10442313682', //a database de cada um de vocês possui a nomenclatura DB_(RA)
-            user: '10442313682', // usuario e senha de cada um de vocês é o RA
-            password: '10442313682',
+            user: 'root', // usuario e senha de cada um de vocês é o RA
+            password: '',   
         });
+    }
+    
+    static getInstance() {
+        if (!Database.#instance) {
+            Database.#instance = new Database();
+        }
+        return Database.#instance;
     }
 
     AbreTransacao() {

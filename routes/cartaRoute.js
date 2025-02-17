@@ -6,12 +6,21 @@ const auth = new AuthMiddleware();
 const ctrl = new cartaController();
 const router = express.Router();
 
-router.get(`/`, (req, res) => {
+router.post(`/:jogo_id`, (req, res) => {
     // #swagger.tags = ['Cartas']
     // #swagger.summary = 'Pegar 12 cartas + Vira'
     // #swagger.description = 'Essa rota pega 12 cartas do baralho + a VIRA'
     
     ctrl.PegarCartasRodadaMao(req,res);
 });
+
+router.get(`/:jogo_id`, (req, res) => {
+    // #swagger.tags = ['Cartas']
+    // #swagger.summary = 'Pegar 12 cartas + Vira'
+    // #swagger.description = 'Essa rota pega 12 cartas do baralho + a VIRA'
+    
+    ctrl.PegarCartasJogo(req,res);
+});
+
 
 export default router;

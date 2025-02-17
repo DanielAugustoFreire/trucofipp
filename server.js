@@ -7,6 +7,10 @@ import cartaRoute from './routes/cartaRoute.js'
 import authRoute from './routes/authRoute.js'
 import jogoRoute from './routes/jogoRoute.js'
 import salaRoute from './routes/salaRoute.js'
+import equipeRoute from './routes/equipeRoute.js'
+import participanteRoute from './routes/participanteRoute.js'
+import rodadaRoute from './routes/rodadaRoute.js'
+import movimentacaoRoute from './routes/movimentacaoRoute.js'
 
 import { createRequire } from "module";
 import cors from 'cors';
@@ -44,6 +48,10 @@ app.use('/carta', cartaRoute);
 app.use('/auth', authRoute);
 app.use('/sala', salaRoute);
 app.use('/jogo', jogoRoute);
+app.use('/equipe', equipeRoute);
+app.use('/participante', participanteRoute);
+app.use('/rodada', rodadaRoute);
+app.use('/movimento', movimentacaoRoute);
 
 server.listen(5000, function() {
     console.log("backend em execução");

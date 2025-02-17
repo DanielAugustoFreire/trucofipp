@@ -7,7 +7,7 @@ import SalaRepository from "../repositories/salaRepositories.js";
 export default class JogoController{
 
     async IniciarJogo(req,res){
-        let banco = new Database();
+        let banco = Database.getInstance();
         await banco.AbreTransacao();
         try{
             let idSala = req.params.idSala;
@@ -32,7 +32,7 @@ export default class JogoController{
     
                     if(jogo){
                         await banco.Commit();
-                        res.status(200).json( {msg : "Partida iniciada com sucesso"} );
+                        res.status(200).json( jogo );
                     }
                 }
             }else{
@@ -40,8 +40,45 @@ export default class JogoController{
             }
         }catch(ex){
             await banco.Rollback();
-            res.status(500).json({msg: "Erro ao iniciar partida ->", erro: ex});
+            res.status(500).json({msg: "Erro ao iniciar partida ->"});
         }
     }
 
+    async VerificarSeOJogoExiste(req,res){
+        try{
+            let idSala = req.params.idSala;
+            if(idSala){
+                let jogoEnt = new JogoEntity();
+                let retorno = await jogoEnt.VerificarSeOJogoExiste(idSala);
+                if(retorno.length > 0){
+                    res.status(200).json(retorno);
+                }else{
+                    res.status(404).json({msg: "Jogo não encontrado"});
+                }
+            }else{
+                res.status(400).json({msg: "Id da sala não informado"});
+            }
+        }catch(ex){
+            res.status(500).json({msg: "Erro ao buscar jogo ->"});
+        }
+    }
+
+    async buscarIdsParticipantesDeterminadoJogo(req,res){
+        try{
+            let idJogo = req.params.idJogo;
+            if(idJogo){
+                let jogoEnt = new JogoEntity();
+                let retorno = await jogoEnt.buscarIdsParticipantesDeterminadoJogo(idJogo);
+                if(retorno.length > 0){
+                    res.status(200).json(retorno);
+                }else{
+                    res.status(404).json({msg: "Ids não encontrados"});
+                }
+            }else{
+                res.status(400).json({msg: "Id do jogo não informado"});
+            }
+        }catch(ex){
+            res.status(500).json({msg: "Erro ao buscar ids dos participantes ->"});
+        }
+    }
 }

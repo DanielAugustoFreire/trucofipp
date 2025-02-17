@@ -11,19 +11,68 @@
     }
   ],
   "paths": {
-    "/carta/": {
-      "get": {
+    "/carta/{jogo_id}": {
+      "post": {
         "tags": [
           "Cartas"
         ],
         "summary": "Pegar 12 cartas + Vira",
         "description": "Essa rota pega 12 cartas do baralho + a VIRA",
+        "parameters": [
+          {
+            "name": "jogo_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "participantes_ids": {
+                    "example": "any"
+                  },
+                  "ordem": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Cartas"
+        ],
+        "summary": "Pegar 12 cartas + Vira",
+        "description": "Essa rota pega 12 cartas do baralho + a VIRA",
+        "parameters": [
+          {
+            "name": "jogo_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
           }
         }
       }
@@ -201,6 +250,12 @@
                   },
                   "usuario_id": {
                     "example": "any"
+                  },
+                  "equipe1": {
+                    "example": "any"
+                  },
+                  "equipe2": {
+                    "example": "any"
                   }
                 }
               }
@@ -209,16 +264,16 @@
         }
       }
     },
-    "/sala/{id}": {
+    "/sala/{id_sala}": {
       "get": {
         "tags": [
           "Salas"
         ],
-        "summary": "ListarSala",
-        "description": "Essa rota lista as salas",
+        "summary": "Lista Players e equipes de determinada sala",
+        "description": "Lista Players e equipes de determinada sala",
         "parameters": [
           {
-            "name": "id",
+            "name": "id_sala",
             "in": "path",
             "required": true,
             "schema": {
@@ -227,15 +282,62 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/sala/inserirParticipante": {
+      "post": {
+        "tags": [
+          "Salas"
+        ],
+        "summary": "Inserir Participante",
+        "description": "Essa rota insere um participante na sala",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "usuario_id": {
+                    "example": "any"
+                  },
+                  "sala_id": {
+                    "example": "any"
+                  },
+                  "equipe_id": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
     "/jogo/{idSala}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Jogo"
+        ],
+        "summary": "Iniciar o Jogo",
+        "description": "Essa Rota inicia o jogo",
         "parameters": [
           {
             "name": "idSala",
@@ -255,6 +357,286 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/jogo/existe/{idSala}": {
+      "get": {
+        "tags": [
+          "Jogo"
+        ],
+        "summary": "Verifica se o jogo ja existe",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idSala",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/jogo/idsParticipantes/{idJogo}": {
+      "get": {
+        "tags": [
+          "Jogo"
+        ],
+        "summary": "busca os ids dos participantes",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idJogo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/equipe/{idSala}": {
+      "get": {
+        "tags": [
+          "Equipe"
+        ],
+        "summary": "Nomes das equipes",
+        "description": "Entrega o valor dos nomes das equipes baseado no id da sala",
+        "parameters": [
+          {
+            "name": "idSala",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/equipe/Exclusivamente/{idSala}": {
+      "get": {
+        "tags": [
+          "Equipe"
+        ],
+        "summary": "Nomes das equipes",
+        "description": "Entrega o valor dos nomes das equipes baseado no id da sala",
+        "parameters": [
+          {
+            "name": "idSala",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/participante/validarDisponibilidade/{user_id}": {
+      "get": {
+        "tags": [
+          "Participante"
+        ],
+        "summary": "Validar Se o Jogador esta disponivel",
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/participante/sairSala/{user_id}": {
+      "delete": {
+        "tags": [
+          "Participante"
+        ],
+        "summary": "Sair da Sala",
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/participante/obterIdParticipante/{usu_id}": {
+      "get": {
+        "tags": [
+          "Participante"
+        ],
+        "summary": "Obter Participantes da Sala",
+        "description": "",
+        "parameters": [
+          {
+            "name": "usu_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/rodada/{mao_id}": {
+      "get": {
+        "tags": [
+          "Rodada"
+        ],
+        "summary": "Iniciar o rodada",
+        "description": "Essa Rota inicia uma rodada",
+        "parameters": [
+          {
+            "name": "mao_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/movimento/": {
+      "post": {
+        "tags": [
+          "Movimento"
+        ],
+        "summary": "Registra um movimento",
+        "description": "Essa Rota registra um movimento",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ordem": {
+                    "example": "any"
+                  },
+                  "carta_id": {
+                    "example": "any"
+                  },
+                  "rodada_id": {
+                    "example": "any"
+                  },
+                  "par_id": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }

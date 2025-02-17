@@ -9,6 +9,6 @@ export default class BaseRepository {
     }
      
     constructor(db) {
-        this.#db = db ? db : new Database();
+        this.#db = db ? db : Database.getInstance();
     }
 }

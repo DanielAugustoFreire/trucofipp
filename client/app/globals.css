@@ -46,3 +46,14 @@ a {
   text-align: center;
   border-radius: 5px;
 }
+
+
+.cursor{
+  cursor: all-scroll	;
+}
+
+
+.sala-inclicavel {
+  pointer-events: none; /* Faz com que a div não responda a cliques */
+  opacity: 0.5;           /* Deixa a div completamente transparente */
+}

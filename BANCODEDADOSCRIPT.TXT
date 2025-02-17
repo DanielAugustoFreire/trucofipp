@@ -1,0 +1,113 @@
+CREATE TABLE `tb_usuario` (
+  `usu_id` int(11) NOT NULL AUTO_INCREMENT,
+  `usu_nome` varchar(100) DEFAULT NULL,
+  `usu_email` varchar(100) DEFAULT NULL,
+  `usu_senha` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`usu_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `tb_equipe` (
+  `eqp_id` int(11) NOT NULL AUTO_INCREMENT,
+  `eqp_descricao` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`eqp_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `tb_sala` (
+  `sal_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sal_nome` varchar(200) DEFAULT NULL,
+  `usu_id` int(11) DEFAULT NULL,
+  `eqp_id_1` int(11) DEFAULT NULL,
+  `eqp_id_2` int(11) DEFAULT NULL,
+  PRIMARY KEY (`sal_id`),
+  KEY `fk_sala_usuario_idx` (`usu_id`),
+  KEY `fk_sala_equipe_1` (`eqp_id_1`),
+  KEY `fk_sala_equipe_2` (`eqp_id_2`),
+  CONSTRAINT `fk_sala_equipe_1` FOREIGN KEY (`eqp_id_1`) REFERENCES `tb_equipe` (`eqp_id`),
+  CONSTRAINT `fk_sala_equipe_2` FOREIGN KEY (`eqp_id_2`) REFERENCES `tb_equipe` (`eqp_id`),
+  CONSTRAINT `fk_sala_usuario` FOREIGN KEY (`usu_id`) REFERENCES `tb_usuario` (`usu_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `tb_participante` (
+  `par_id` int(11) NOT NULL AUTO_INCREMENT,
+  `par_dtentrada` datetime DEFAULT NULL,
+  `par_dtsaida` datetime DEFAULT NULL,
+  `usu_id` int(11) DEFAULT NULL,
+  `sal_id` int(11) DEFAULT NULL,
+  `eqp_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`par_id`),
+  KEY `fk_participante_usuario` (`usu_id`),
+  KEY `fk_participante_sala` (`sal_id`),
+  KEY `fk_participante_equipe` (`eqp_id`),
+  CONSTRAINT `fk_participante_equipe` FOREIGN KEY (`eqp_id`) REFERENCES `tb_equipe` (`eqp_id`),
+  CONSTRAINT `fk_participante_sala` FOREIGN KEY (`sal_id`) REFERENCES `tb_sala` (`sal_id`),
+  CONSTRAINT `fk_participante_usuario` FOREIGN KEY (`usu_id`) REFERENCES `tb_usuario` (`usu_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `tb_jogo` (
+  `jog_id` int(11) NOT NULL AUTO_INCREMENT,
+  `jog_dtinicio` datetime DEFAULT NULL,
+  `jog_dtfim` datetime DEFAULT NULL,
+  `sal_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`jog_id`),
+  KEY `fk_jogo_sala` (`sal_id`),
+  CONSTRAINT `fk_jogo_sala` FOREIGN KEY (`sal_id`) REFERENCES `tb_sala` (`sal_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `tb_mao` (
+  `mao_id` int(11) NOT NULL AUTO_INCREMENT,
+  `mao_ordem` int(11) DEFAULT NULL,
+  `mao_codigobaralho` varchar(50) DEFAULT NULL,
+  `mao_trucada` varchar(1) DEFAULT NULL,
+  `mao_valor` int(11) DEFAULT NULL,
+  `jog_id` int(11) DEFAULT NULL,
+  `eqp_vencedora` int(11) DEFAULT NULL,
+  PRIMARY KEY (`mao_id`),
+  KEY `fk_mao_jogo` (`jog_id`),
+  KEY `fk_mao_equipe` (`eqp_vencedora`),
+  CONSTRAINT `fk_mao_equipe` FOREIGN KEY (`eqp_vencedora`) REFERENCES `tb_equipe` (`eqp_id`),
+  CONSTRAINT `fk_mao_jogo` FOREIGN KEY (`jog_id`) REFERENCES `tb_jogo` (`jog_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `tb_rodada` (
+  `rod_id` int(11) NOT NULL AUTO_INCREMENT,
+  `mao_id` int(11) DEFAULT NULL,
+  `eqp_vencedora` int(11) DEFAULT NULL,
+  PRIMARY KEY (`rod_id`),
+  KEY `fk_subrodada_rodada_idx` (`mao_id`),
+  KEY `fk_subrodada_equipe_idx` (`eqp_vencedora`),
+  CONSTRAINT `fk_rodada_equipe` FOREIGN KEY (`eqp_vencedora`) REFERENCES `tb_equipe` (`eqp_id`),
+  CONSTRAINT `fk_rodada_mao` FOREIGN KEY (`mao_id`) REFERENCES `tb_mao` (`mao_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `tb_carta` (
+  `car_id` int(11) NOT NULL AUTO_INCREMENT,
+  `car_codigo` varchar(10) DEFAULT NULL,
+  `car_imagem` varchar(200) DEFAULT NULL,
+  `car_valor` int(11) DEFAULT NULL,
+  `car_naipe` varchar(20) DEFAULT NULL,
+  `car_vira` varchar(1) DEFAULT NULL,
+  `par_id` int(11) DEFAULT NULL,
+  `mao_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`car_id`),
+  KEY `fk_carta_participante_idx` (`par_id`),
+  KEY `fk_carta_rodada_idx` (`mao_id`),
+  CONSTRAINT `fk_carta_mao` FOREIGN KEY (`mao_id`) REFERENCES `tb_mao` (`mao_id`),
+  CONSTRAINT `fk_carta_participante` FOREIGN KEY (`par_id`) REFERENCES `tb_participante` (`par_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `tb_movimentacao` (
+  `mov_id` int(11) NOT NULL AUTO_INCREMENT,
+  `mov_ordem` int(11) DEFAULT NULL,
+  `mov_correu` varchar(1) DEFAULT NULL,
+  `mov_trucou` varchar(1) DEFAULT NULL,
+  `car_id` int(11) DEFAULT NULL,
+  `rod_id` int(11) DEFAULT NULL,
+  `par_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`mov_id`),
+  KEY `fk_movimentacao_carta` (`car_id`),
+  KEY `fk_movimentacao_participante_idx` (`par_id`),
+  KEY `fk_movimentacao_subrodada_idx` (`rod_id`),
+  CONSTRAINT `fk_movimentacao_carta` FOREIGN KEY (`car_id`) REFERENCES `tb_carta` (`car_id`),
+  CONSTRAINT `fk_movimentacao_participante` FOREIGN KEY (`par_id`) REFERENCES `tb_participante` (`par_id`),
+  CONSTRAINT `fk_movimentacao_rodada` FOREIGN KEY (`rod_id`) REFERENCES `tb_rodada` (`rod_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
