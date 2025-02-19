@@ -11,11 +11,9 @@ O **TrucoFipp** foi um projeto desenvolvido para digitalizar e otimizar a experi
 
 ## Funcionalidades Principais
 - Partidas multiplayer com conexão em tempo real
-- Regras personalizadas de truco paulista
 - Interface responsiva e amigável
-- Sistema de ranqueamento de jogadores
-- Chat em tempo real para comunicação entre jogadores
-- Histórico de partidas salvas
+- Criação de salas personalizadas.
+- Criação de partidas personalizadas.
 
 ## Tela Inicial
 
