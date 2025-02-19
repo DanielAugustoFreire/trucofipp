@@ -15,16 +15,21 @@ O **TrucoFipp** foi um projeto desenvolvido para digitalizar e otimizar a experi
 - Criação de salas personalizadas.
 - Criação de partidas personalizadas.
 
-## Tela Inicial
+## Tela Inicial!
 
-<div class='screenshot'>Espaço para print da tela inicial</div>
+![image](https://github.com/user-attachments/assets/3fcc1698-efff-4a3e-bfdd-e8d1d25d73e1)
 
-## Tela de Partida
+## Tela para escolha da equipe!
 
-<div class='screenshot'>Espaço para print da tela de partida</div>
+![image](https://github.com/user-attachments/assets/2e13d9fc-2535-4f08-91a4-26669c84b50c)
 
-## Tela de Ranking
+## Tela de espera!
 
-<div class='screenshot'>Espaço para print da tela de ranking</div>
+![image](https://github.com/user-attachments/assets/90593549-5bc6-4e7e-9208-d0d7b6893b97)
+
+
+## Tela de Partida!
+
+![image](https://github.com/user-attachments/assets/4be3b55c-88fa-4f52-a6b9-9a83f6207dc0)
 
 Este projeto destacou-se pelo seu foco em desenvolvimento backend com **Node.js**, a utilização de **Socket.io** para comunicação em tempo real e na implementação de um sistema dinâmico e interativo para os usuários.
